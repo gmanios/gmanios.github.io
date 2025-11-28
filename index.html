@@ -98,7 +98,7 @@
         }
         .pub-item {
             position: relative;
-            padding-left: 3rem;
+            padding-left: 3.5rem;
         }
         .pub-item::before {
             counter-increment: pub-counter;
@@ -106,8 +106,8 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 2rem;
-            height: 2rem;
+            width: 2.25rem;
+            height: 2.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -115,7 +115,8 @@
             background-color: #e0e7ff;
             color: #4f46e5;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            margin-top: -2px;
         }
         .dark .pub-item::before {
             background-color: #312e81;
@@ -135,18 +136,24 @@
         
         <!-- Header / Hero Section -->
         <header class="mb-12 animate-fade-in">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-                <div>
-                    <h1 class="font-serif text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <!-- Profile Image -->
+                <div class="shrink-0 relative group">
+                    <div class="absolute inset-0 bg-primary-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+                    <img src="image_fb6dfe.png" alt="Georgios A. Manios" class="relative w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-white dark:border-slate-800 shadow-xl">
+                </div>
+
+                <div class="text-center md:text-left pt-2">
+                    <h1 class="font-serif text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
                         Georgios A. Manios
                     </h1>
-                    <p class="text-lg md:text-xl text-primary-600 dark:text-primary-400 font-medium mb-1">
+                    <p class="text-lg md:text-xl text-primary-600 dark:text-primary-400 font-medium mb-2">
                         PhD Candidate in Computer Science &amp; Biomedical Informatics
                     </p>
-                    <p class="text-slate-600 dark:text-slate-400 mb-4 text-base leading-relaxed max-w-2xl">
+                    <p class="text-slate-600 dark:text-slate-400 mb-5 text-base leading-relaxed max-w-2xl mx-auto md:mx-0">
                         University of Thessaly, Greece — Computational Methods for Molecular Biological Data
                     </p>
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-500 dark:text-slate-500">
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-slate-500 dark:text-slate-500">
                         <span class="flex items-center gap-1">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             Greek &amp; American
@@ -166,14 +173,14 @@
 
         <!-- Sticky Navigation -->
         <nav class="sticky top-4 z-50 mb-12 animate-slide-up" style="animation-delay: 0.1s;">
-            <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-full shadow-lg px-2 py-2 flex items-center justify-between">
+            <div class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-full shadow-lg px-2 py-2 flex items-center justify-between">
                 <div class="flex items-center overflow-x-auto no-scrollbar gap-1 px-2 w-full">
-                    <a href="#about" class="px-4 py-1.5 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">About</a>
-                    <a href="#studies" class="px-4 py-1.5 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Studies</a>
-                    <a href="#experience" class="px-4 py-1.5 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Exp</a>
-                    <a href="#research-programs" class="px-4 py-1.5 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Research</a>
-                    <a href="#publications" class="px-4 py-1.5 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Pubs</a>
-                    <a href="#skills" class="px-4 py-1.5 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Skills</a>
+                    <a href="#about" class="px-4 py-2 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">About</a>
+                    <a href="#studies" class="px-4 py-2 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Studies</a>
+                    <a href="#experience" class="px-4 py-2 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Experience</a>
+                    <a href="#research-programs" class="px-4 py-2 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Research</a>
+                    <a href="#publications" class="px-4 py-2 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Publications</a>
+                    <a href="#skills" class="px-4 py-2 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all whitespace-nowrap">Skills</a>
                 </div>
                 
                 <!-- Theme Toggle -->
@@ -198,10 +205,7 @@
                 </h2>
                 <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
                     <p class="leading-relaxed text-lg">
-                        I am a PhD candidate at the Department of Computer Science and Biomedical Informatics,
-                        University of Thessaly, working on computational methods for the analysis of molecular
-                        biological data. My particular focus is on the <strong class="text-primary-600 dark:text-primary-400">meta-analysis of gene expression studies</strong> and
-                        genome-wide association data.
+                        I am a PhD candidate at the Department of Computer Science and Biomedical Informatics, University of Thessaly, working on computational methods for the analysis of molecular biological data. My particular focus is on the meta-analysis of gene expression studies and genome-wide association studies.
                     </p>
                 </div>
             </section>
@@ -365,46 +369,46 @@
                     <span class="text-primary-500">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     </span>
-                    Selected Publications
+                    Publications in Journals
                 </h2>
                 
                 <div class="space-y-6 pub-list">
                     <!-- Pub 1 -->
                     <div class="pub-item">
                         <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
-                            <span class="font-semibold text-slate-900 dark:text-white">Manios, G.A.</span>, Michailidi, A., Kontou, P.I., & Bagos, P.G. (2025). 
+                            Manios, G.A., Michailidi, A., Kontou, P.I., & Bagos, P.G. (2025). 
                             <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline decoration-2 underline-offset-2">PRED-LD: efficient imputation of GWAS summary statistics.</a>
-                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">BMC Bioinformatics, 26(1), 107.</span>
+                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">BMC bioinformatics, 26(1), 107.</span>
                         </p>
                     </div>
                      <!-- Pub 2 -->
                      <div class="pub-item">
                         <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
-                            Koumaki, D., <span class="font-semibold text-slate-900 dark:text-white">Manios, G.</span>, et al. (2024). 
-                            Color Analysis of Merkel Cell Carcinoma: A Comparative Study.
+                            Koumaki, D., Manios, G., Papadakis, M., Doxastaki, A., Zacharopoulos, G.V., Katoulis, A., & Manios, A. (2024). 
+                            Color Analysis of Merkel Cell Carcinoma: A Comparative Study with Cherry Angiomas, Hemangiomas, Basal Cell Carcinomas, and Squamous Cell Carcinomas.
                             <span class="italic text-slate-500 dark:text-slate-400 block mt-1">Diagnostics, 14(2), 230.</span>
                         </p>
                     </div>
                     <!-- Pub 3 -->
                     <div class="pub-item">
                         <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
-                            Koumaki, D., ... <span class="font-semibold text-slate-900 dark:text-white">Manios, G.</span>, ... & Kassotakis, D. (2024). 
-                             Skin cancer knowledge... in a Greek cohort.
+                            Koumaki, D., Evangelou, G., Gregoriou, S., Kouloumvakou, S., Manios, A., Katoulis, A., Zacharopoulos, G.V., Chernyshov, P.V., Papadakis, M., & Kassotakis, D. (2024). 
+                            Skin cancer knowledge, sun exposure, photoprotection behavior, and perceived barriers associated with skin cancer types in a Greek cohort: A cross-sectional study on the Island of Crete.
                             <span class="italic text-slate-500 dark:text-slate-400 block mt-1">Cancers, 16(24), 4226.</span>
                         </p>
                     </div>
                     <!-- Pub 4 -->
                     <div class="pub-item">
                          <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
-                             Ioannou, P., ... <span class="font-semibold text-slate-900 dark:text-white">Manios, G.A.</span>, et al. (2023). 
-                             A six-year retrospective study of microbiological characteristics...
+                            Ioannou, P., Maraki, S., Koumaki, D., Manios, G.A., Koumaki, V., Kassotakis, D., Zacharopoulos, G.V., Kofteridis, D.P., Manios, A., & de Bree, E. (2023). 
+                            A six-year retrospective study of microbiological characteristics and antimicrobial resistance in specimens from a tertiary hospital’s surgical ward.
                              <span class="italic text-slate-500 dark:text-slate-400 block mt-1">Antibiotics, 12(3), 490.</span>
                          </p>
                      </div>
                      <!-- Pub 5 -->
                      <div class="pub-item">
                         <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
-                            Papadakis, M., <span class="font-semibold text-slate-900 dark:text-white">Manios, G.</span>, et al. (2023). 
+                            Papadakis, M., Manios, G., Zacharopoulos, G., Koumaki, D., & Manios, A. (2023). 
                             Biomechanical explanation of W-plasty effectiveness using a finite element method approach.
                             <span class="italic text-slate-500 dark:text-slate-400 block mt-1">Scientific Reports, 13(1), 18109.</span>
                         </p>
@@ -412,17 +416,49 @@
                      <!-- Pub 6 -->
                      <div class="pub-item">
                         <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
-                            Zacharopoulos, G.V., <span class="font-semibold text-slate-900 dark:text-white">Manios, G.A.</span>, et al. (2023). 
+                            Zacharopoulos, G.V., Manios, G.A., Papadakis, M., Koumaki, D., Maraki, S., Kassotakis, D., De Bree, E., & Manios, A. (2023). 
                             Comparative activities of ampicillin and teicoplanin against Enterococcus faecalis isolates.
-                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">BMC Microbiology, 23(1), 5.</span>
+                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">BMC microbiology, 23(1), 5.</span>
+                        </p>
+                    </div>
+                     <!-- Pub 7 -->
+                     <div class="pub-item">
+                        <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
+                            Bogogiannidou, Z., Koureas, M., Mouchtouri, V.A., Dadouli, K., Kyritsi, M.A., Vontas, A., Anagnostopoulos, L., Mina, P., Matziri, A., & Vachtsioli, E. (2023). 
+                            Does tourism affect the long term course of COVID-19 pandemic in a country of destination? Evidence from a popular Greek island in 2020 where control measures were implemented.
+                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">Frontiers in Epidemiology, 3, 1149706.</span>
+                        </p>
+                    </div>
+                     <!-- Pub 8 -->
+                     <div class="pub-item">
+                        <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
+                            Papadakis, M., Paschos, A., Papazoglou, A.S., Manios, A., Zirngibl, H., Manios, G., & Koumaki, D. (2022). 
+                            Computer-aided clinical image analysis as a predictor of sentinel lymph node positivity in cutaneous melanoma.
+                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">World Journal of Clinical Oncology, 13(8), 702.</span>
                         </p>
                     </div>
                      <!-- Pub 9 -->
                      <div class="pub-item">
                         <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
-                            Tamposis, I.A., <span class="font-semibold text-slate-900 dark:text-white">Manios, G.A.</span>, et al. (2022). 
+                            Tamposis, I.A., Manios, G.A., Charitou, T., Vennou, K.E., Kontou, P.I., & Bagos, P.G. (2022). 
                             MAGE: An Open-Source Tool for Meta-Analysis of Gene Expression Studies.
                             <span class="italic text-slate-500 dark:text-slate-400 block mt-1">Biology, 11(6), 895.</span>
+                        </p>
+                    </div>
+                     <!-- Pub 10 -->
+                     <div class="pub-item">
+                        <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
+                            Koumaki, D., Papadakis, M., Lagoudaki, E., Manios, G.A., Kassotakis, D., Doxastaki, A., Krasagakis, K., & Manios, A. (2021). 
+                            Apocrine and eccrine hidrocystomas: a clinicopathological study.
+                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">Acta Dermatovenerol Alp Pannonica Adriat, 30(2), 53–56.</span>
+                        </p>
+                    </div>
+                     <!-- Pub 11 -->
+                     <div class="pub-item">
+                        <p class="text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
+                            Papadakis, M., Paschos, A., Manios, A., Lehmann, P., Manios, G., & Zirngibl, H. (2021). 
+                            Computer-aided clinical image analysis for non-invasive assessment of tumor thickness in cutaneous melanoma.
+                            <span class="italic text-slate-500 dark:text-slate-400 block mt-1">BMC Research Notes, 14(1), 232.</span>
                         </p>
                     </div>
                 </div>
