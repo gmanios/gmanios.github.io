@@ -1,274 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Curriculum Vitae of Georgios A. Manios – PhD candidate in Computational Biology, Teaching Assistant, Bioinformatics specialist.">
-  
-  <title>Georgios A. Manios | Curriculum Vitae</title>
-  
-  <!-- Roboto font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Georgios A. Manios &mdash; Curriculum Vitae</title>
   <style>
-    /* CSS Variables for easy theming */
     :root {
-      --clr-primary: #003300;
-      --clr-secondary: #004d00;
-      --clr-bg: #f5f5f5;
-      --clr-white: #ffffff;
-      --clr-dark: #333333;
-      --ff-sans: 'Roboto', Arial, sans-serif;
+      --bg: #f3f4f6;
+      --fg: #111827;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --border: #e5e7eb;
+      --muted: #6b7280;
     }
 
-    /* Reset & base */
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
+
     body {
-      font-family: var(--ff-sans);
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
       line-height: 1.6;
-      background-color: var(--clr-bg);
-      color: var(--clr-dark);
     }
+
     a {
-      color: inherit;
+      color: var(--accent);
       text-decoration: none;
     }
-    img {
-      max-width: 100%;
-      display: block;
+
+    a:hover {
+      text-decoration: underline;
     }
 
-    /* Skip link for accessibility */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      background: var(--clr-primary);
-      color: var(--clr-white);
-      padding: 8px;
-      z-index: 100;
-      transition: top 0.3s;
-    }
-    .skip-link:focus {
-      top: 0;
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
     }
 
-    /* Header */
-    header {
-      background: var(--clr-primary);
-      color: var(--clr-white);
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.3rem;
-    }
-    header .subtitle {
-      font-size: 1.25rem;
-      opacity: 0.8;
-    }
-    /* Social icons */
-    .social-links {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .social-links a img {
-      width: 32px;
-      height: 32px;
-      transition: transform 0.3s;
-      filter: invert(100%); /* make SVG white */
-    }
-    .social-links a:hover img {
-      transform: scale(1.2);
-    }
-
-    /* Navigation */
-    nav {
-      background: var(--clr-secondary);
-    }
-    .nav-list {
+    .site-header {
+      margin: -1.5rem -1.25rem 1.75rem;
+      padding: 1.75rem 1.5rem 1.25rem;
+      background: linear-gradient(135deg, #0f172a, #111827, #1f2937);
+      color: #e5e7eb;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      list-style: none;
-    }
-    .nav-list li {
-      margin: 0.5rem;
-    }
-    .nav-list a {
-      display: block;
-      padding: 0.75rem 1.25rem;
-      font-weight: 700;
-      transition: background 0.3s;
-    }
-    .nav-list a:hover {
-      background: rgba(0, 0, 0, 0.2);
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
     }
 
-    /* Main content wrapper */
+    .intro {
+      max-width: 520px;
+    }
+
+    .intro h1 {
+      margin: 0 0 0.25rem;
+      font-size: clamp(2.1rem, 3vw, 2.7rem);
+      letter-spacing: 0.03em;
+      color: #ffffff;
+    }
+
+    .tagline {
+      margin: 0 0 0.25rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .subtagline {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #cbd5f5;
+    }
+
+    .meta-inline {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .site-nav a {
+      font-size: 0.85rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+      text-decoration: none;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(8px);
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .site-nav a:hover {
+      background: rgba(37, 99, 235, 0.35);
+      border-color: rgba(129, 140, 248, 0.9);
+      transform: translateY(-1px);
+    }
+
     main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    section {
-      margin-bottom: 2.5rem;
-    }
-    .section-title {
-      font-size: 1.5rem;
-      color: var(--clr-primary);
-      margin-bottom: 1rem;
-      border-bottom: 3px solid var(--clr-secondary);
-      display: inline-block;
-      padding-bottom: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    /* Lists */
-    ul {
-      list-style: none;
-    }
-    ul li {
-      position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-    ul li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--clr-secondary);
-      font-weight: bold;
+    .section {
+      background: #ffffff;
+      border-radius: 0.85rem;
+      padding: 1.3rem 1.6rem 1.35rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
     }
 
-    /* Footer */
-    footer {
-      background: var(--clr-secondary);
-      color: var(--clr-white);
-      text-align: center;
-      padding: 1.5rem 1rem;
-      margin-top: 2rem;
+    .section + .section {
+      margin-top: 0.25rem;
+    }
+
+    .section h2 {
+      margin: 0 0 0.6rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #111827;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+    }
+
+    .section h3 {
+      margin: 0.4rem 0 0.3rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .muted {
+      color: var(--muted);
       font-size: 0.9rem;
     }
 
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      header h1 { font-size: 2rem; }
-      .nav-list a { padding: 0.5rem 1rem; font-size: 0.9rem; }
+    .info-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0.4rem 0 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.3rem 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .info-list li strong {
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 0.35rem;
+    }
+
+    .item {
+      padding-left: 0.9rem;
+      border-left: 2px solid var(--border);
+      position: relative;
+    }
+
+    .item::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 0.3rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .item-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.25rem 0.75rem;
+    }
+
+    .item-title {
+      font-weight: 600;
+    }
+
+    .item-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .item-body {
+      margin-top: 0.25rem;
+      font-size: 0.95rem;
+    }
+
+    .stack-two-cols {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .subsection-title {
+      margin: 0.4rem 0 0.25rem;
+      font-size: 0.96rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #374151;
+    }
+
+    .simple-list {
+      margin: 0.25rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.95rem;
+    }
+
+    .simple-list li {
+      margin-bottom: 0.2rem;
+    }
+
+    .pub-list {
+      margin: 0.5rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.95rem;
+    }
+
+    .pub-list li {
+      margin-bottom: 0.55rem;
+    }
+
+    .inline-label {
+      font-weight: 600;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.6rem 1.5rem;
+      padding-left: 0;
+      list-style: none;
+      margin: 0.35rem 0 0;
+      font-size: 0.95rem;
+    }
+
+    .skills-grid li strong {
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .site-footer {
+      margin-top: 1.9rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .stack-two-cols {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
   </style>
 </head>
-
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="page">
+    <header class="site-header">
+      <div class="intro">
+        <h1>Georgios A. Manios</h1>
+        <p class="tagline">PhD Candidate in Computer Science &amp; Biomedical Informatics</p>
+        <p class="subtagline">University of Thessaly, Greece &mdash; Computational Methods for Molecular Biological Data</p>
+        <p class="meta-inline">Greek &amp; American | Born 28 November 1998, Heraklion, Crete, Greece</p>
+      </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#studies">Studies</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#experience">Experience</a>
+        <a href="#research-programs">Research</a>
+        <a href="#scholarships">Scholarships</a>
+        <a href="#publications">Publications</a>
+        <a href="#conferences">Conferences</a>
+        <a href="#skills">Skills</a>
+      </nav>
+    </header>
 
-  <header>
-    <h1>Georgios A. Manios</h1>
-    <p class="subtitle">Curriculum Vitae</p>
-    <div class="social-links">
-      <!-- Google Scholar icon -->
-      <a href="https://scholar.google.com/citations?user=H694CzwAAAAJ&hl=el"
-         target="_blank" rel="noopener">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/googlescholar.svg"
-             alt="Google Scholar">
-      </a>
-      <!-- ResearchGate icon -->
-      <a href="https://www.researchgate.net/profile/Georgios-Manios/research"
-         target="_blank" rel="noopener">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/researchgate.svg"
-             alt="ResearchGate">
-      </a>
-    </div>
-  </header>
+    <main>
+      <section id="about" class="section">
+        <h2>About</h2>
+        <p>
+          I am a PhD candidate at the Department of Computer Science and Biomedical Informatics,
+          University of Thessaly, working on computational methods for the analysis of molecular
+          biological data, with a particular focus on meta-analysis of gene expression studies and
+          genome-wide association data.
+        </p>
+        <ul class="info-list">
+          <li><strong>Ethnicity:</strong> Greek, American</li>
+          <li><strong>Birth date:</strong> 28 November 1998</li>
+          <li><strong>Place of birth:</strong> Heraklion, Crete, Greece</li>
+        </ul>
+      </section>
 
-  <nav aria-label="Primary">
-    <ul class="nav-list">
-      <li><a href="#personal">Personal</a></li>
-      <li><a href="#studies">Studies</a></li>
-      <li><a href="#teaching">Teaching</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#skills">Skills</a></li>
-    </ul>
-  </nav>
+      <section id="studies" class="section">
+        <h2>Studies</h2>
+        <div class="timeline">
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">Doctoral Thesis (PhD)</div>
+              <div class="item-meta">11/2021 &ndash; Present &middot; University of Thessaly</div>
+            </div>
+            <div class="item-body">
+              <p><span class="inline-label">Department:</span> Computer Science and Biomedical Informatics</p>
+              <p><span class="inline-label">Thesis theme:</span> 
+                &ldquo;Computational Methods for the analysis of molecular biological data&rdquo;
+              </p>
+            </div>
+          </article>
 
-  <main id="main-content">
-    <section id="personal">
-      <h2 class="section-title">Personal Information</h2>
-      <ul>
-        <li><strong>Ethnicity:</strong> Greek, American</li>
-        <li><strong>Birth Date:</strong> 28 November 1998</li>
-        <li><strong>Place of Birth:</strong> Heraklion, Crete, Greece</li>
-        <li><strong>Father's Name:</strong> Andreas</li>
-      </ul>
-    </section>
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">BSc in Computer Science and Biomedical Informatics</div>
+              <div class="item-meta">2017 &ndash; 2021 &middot; University of Thessaly</div>
+            </div>
+            <div class="item-body">
+              <p><span class="inline-label">Grade:</span> 7.30 (Very Good)</p>
+              <p><span class="inline-label">BSc thesis:</span> 
+                &ldquo;Software for meta-analysis of gene expression data from DNA microarrays&rdquo;
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
 
-    <section id="studies">
-      <h2 class="section-title">Studies</h2>
-      <ul>
-        <li><strong>PhD</strong> (Nov 2021 – Present):<br>
-            Computational Methods for the Analysis of Molecular Biological Data,<br>
-            University of Thessaly</li>
-        <li><strong>BSc</strong> (2017 – 2021):<br>
-            Computer Science & Biomedical Informatics,<br>
-            University of Thessaly</li>
-        <li><strong>Thesis</strong>: Software for meta-analysis of gene expression data from DNA microarrays</li>
-      </ul>
-    </section>
+      <section id="teaching" class="section">
+        <h2>Teaching Experience</h2>
+        <div class="timeline">
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">Teaching Assistant &mdash; Introduction to Informatics (Laboratory)</div>
+              <div class="item-meta">9/2023 &ndash; 1/2024 &middot; University of Thessaly</div>
+            </div>
+          </article>
 
-    <section id="teaching">
-      <h2 class="section-title">Teaching Experience</h2>
-      <ul>
-        <li><strong>2023 – 2024:</strong> TA for “Introduction to Informatics” (Undergraduate)</li>
-        <li><strong>2022 – Present:</strong> TA for “Bioinformatics I & II” (Undergraduate)</li>
-        <li><strong>2018 – 2020:</strong> TA for “Linear Algebra” (Undergraduate)</li>
-      </ul>
-    </section>
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">Teaching Assistant &mdash; Bioinformatics I &amp; II (Laboratory)</div>
+              <div class="item-meta">3/2022 &ndash; Present &middot; University of Thessaly</div>
+            </div>
+          </article>
 
-    <section id="experience">
-      <h2 class="section-title">Professional Experience</h2>
-      <ul>
-        <li><strong>Sep 2020 – Nov 2021:</strong><br>
-            Intern Programmer & Data Analyst,<br>
-            Bio-NDT Lab, Institute of Molecular Biology & Biotechnology (FORTH)</li>
-        <li><strong>Jul 2020 – Sep 2020:</strong><br>
-            Summer Practice, Bio-NDT Lab, FORTH</li>
-        <li><strong>Jun 2018 – Sep 2018:</strong><br>
-            Computerization Assistant,<br>
-            Computer Science Dept., University of Crete</li>
-      </ul>
-    </section>
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">Teaching Assistant &mdash; Linear Algebra (Laboratory)</div>
+              <div class="item-meta">10/2018 &ndash; 1/2020 &middot; University of Thessaly</div>
+            </div>
+          </article>
+        </div>
+      </section>
 
-    <section id="research">
-      <h2 class="section-title">Research Programs</h2>
-      <ul>
-        <li><strong>GENOMIC OASIS</strong> (Jan 2022 – Sep 2023):<br>
-            Procurement, installation & operation of infrastructure; development of<br>
-            bioinformatics tools for rapid identification of rice root microbiomes &<br>
-            genomic methods for livestock.</li>
-      </ul>
-    </section>
+      <section id="experience" class="section">
+        <h2>Professional Experience</h2>
+        <div class="timeline">
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">Intern &mdash; Programmer and Data Analyst</div>
+              <div class="item-meta">9/2020 &ndash; 11/2021 &middot; Bio-NDT Lab, IMBB-FORTH</div>
+            </div>
+            <div class="item-body">
+              <p>
+                Laboratory of Biological Nondestructive Technologies (Bio-NDT Lab), Institute of Molecular
+                Biology and Biotechnology, Foundation for Research and Technology &mdash; Hellas (FORTH).
+              </p>
+            </div>
+          </article>
 
-    <section id="skills">
-      <h2 class="section-title">Skills</h2>
-      <ul>
-        <li><strong>Programming:</strong> Python, R, C/C++, MATLAB, Perl (advanced); Java, SQL, PHP, CSS, JavaScript (intermediate)</li>
-        <li><strong>Scientific Software:</strong> Octave, R Studio, Wolfram Alpha, Origin, STATA, SPSS</li>
-        <li><strong>Languages:</strong> English (C2), French (Beginner)</li>
-      </ul>
-    </section>
-  </main>
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">Summer Practice</div>
+              <div class="item-meta">7/2020 &ndash; 9/2020 &middot; Bio-NDT Lab, IMBB-FORTH</div>
+            </div>
+          </article>
 
-  <footer>
-    &copy; 2024 Georgios A. Manios | All Rights Reserved
-  </footer>
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">Computerization Assistant</div>
+              <div class="item-meta">6/2018 &ndash; 9/2018 &middot; University of Crete</div>
+            </div>
+            <div class="item-body">
+              <p>
+                Department of Computerization, Department of Computer Science, University of Crete.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="research-programs" class="section">
+        <h2>Participation in Research Programs</h2>
+        <div class="timeline">
+          <article class="item">
+            <div class="item-header">
+              <div class="item-title">GENOMIC OASIS</div>
+              <div class="item-meta">1/2022 &ndash; 9/2023 &middot; University of Thessaly</div>
+            </div>
+            <div class="item-body">
+              <p>
+                <span class="inline-label">Project:</span>
+                GENOMIC analysis of Organisms of Agricultural and Livestock Interest in Sterea,
+                Department of Informatics with Applications in Biomedicine &mdash; University of Thessaly,
+                Region of Sterea Greece.
+              </p>
+              <p>
+                <span class="inline-label">Role:</span>
+              </p>
+              <ul class="simple-list">
+                <li>Participation in the procurement, installation and operation of the GENOMIC-OASIS infrastructure.</li>
+                <li>Collection of rice root microbiomes and development of innovative genomic methods for rapid identification of rice microbiomes.</li>
+                <li>Design of bioinformatics pipelines and computational (bio)statistical tools for microbiome analysis.</li>
+                <li>Participation in the development of next-generation sequencing protocols for genomic identification of predators of productive livestock.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="scholarships" class="section">
+        <h2>Scholarships</h2>
+        <p class="muted">9/2022 &ndash; 9/2025</p>
+        <p>
+          <strong>"Rigas Velestinlis" Scholarship</strong> &mdash; Three-year scholarship for doctoral candidates
+          of the University of Thessaly, awarded within the Research, Innovation and Excellence
+          Structure (REI) of the University of Thessaly.
+        </p>
+      </section>
+
+      <section id="publications" class="section">
+        <h2>Publications in Journals</h2>
+        <ol class="pub-list">
+          <li>
+            Manios, G.A., Michailidi, A., Kontou, P.I., &amp; Bagos, P.G. (2025).
+            PRED-LD: efficient imputation of GWAS summary statistics.
+            <em>BMC bioinformatics</em>, 26(1), 107.
+          </li>
+          <li>
+            Koumaki, D., Manios, G., Papadakis, M., Doxastaki, A., Zacharopoulos, G.V., Katoulis, A., &amp; Manios, A. (2024).
+            Color Analysis of Merkel Cell Carcinoma: A Comparative Study with Cherry Angiomas, Hemangiomas,
+            Basal Cell Carcinomas, and Squamous Cell Carcinomas.
+            <em>Diagnostics</em>, 14(2), 230.
+          </li>
+          <li>
+            Koumaki, D., Evangelou, G., Gregoriou, S., Kouloumvakou, S., Manios, A., Katoulis, A.,
+            Zacharopoulos, G.V., Chernyshov, P.V., Papadakis, M., &amp; Kassotakis, D. (2024).
+            Skin cancer knowledge, sun exposure, photoprotection behavior, and perceived barriers associated
+            with skin cancer types in a Greek cohort: A cross-sectional study on the Island of Crete.
+            <em>Cancers</em>, 16(24), 4226.
+          </li>
+          <li>
+            Ioannou, P., Maraki, S., Koumaki, D., Manios, G.A., Koumaki, V., Kassotakis, D., Zacharopoulos, G.V.,
+            Kofteridis, D.P., Manios, A., &amp; de Bree, E. (2023).
+            A six-year retrospective study of microbiological characteristics and antimicrobial resistance in
+            specimens from a tertiary hospital’s surgical ward.
+            <em>Antibiotics</em>, 12(3), 490.
+          </li>
+          <li>
+            Papadakis, M., Manios, G., Zacharopoulos, G., Koumaki, D., &amp; Manios, A. (2023).
+            Biomechanical explanation of W-plasty effectiveness using a finite element method approach.
+            <em>Scientific Reports</em>, 13(1), 18109.
+          </li>
+          <li>
+            Zacharopoulos, G.V., Manios, G.A., Papadakis, M., Koumaki, D., Maraki, S., Kassotakis, D.,
+            De Bree, E., &amp; Manios, A. (2023).
+            Comparative activities of ampicillin and teicoplanin against <em>Enterococcus faecalis</em> isolates.
+            <em>BMC microbiology</em>, 23(1), 5.
+          </li>
+          <li>
+            Bogogiannidou, Z., Koureas, M., Mouchtouri, V.A., Dadouli, K., Kyritsi, M.A., Vontas, A.,
+            Anagnostopoulos, L., Mina, P., Matziri, A., &amp; Vachtsioli, E. (2023).
+            Does tourism affect the long term course of COVID-19 pandemic in a country of destination?
+            Evidence from a popular Greek island in 2020 where control measures were implemented.
+            <em>Frontiers in Epidemiology</em>, 3, 1149706.
+          </li>
+          <li>
+            Papadakis, M., Paschos, A., Papazoglou, A.S., Manios, A., Zirngibl, H., Manios, G., &amp; Koumaki, D. (2022).
+            Computer-aided clinical image analysis as a predictor of sentinel lymph node positivity in cutaneous melanoma.
+            <em>World Journal of Clinical Oncology</em>, 13(8), 702.
+          </li>
+          <li>
+            Tamposis, I.A., Manios, G.A., Charitou, T., Vennou, K.E., Kontou, P.I., &amp; Bagos, P.G. (2022).
+            MAGE: An Open-Source Tool for Meta-Analysis of Gene Expression Studies.
+            <em>Biology</em>, 11(6), 895.
+          </li>
+          <li>
+            Koumaki, D., Papadakis, M., Lagoudaki, E., Manios, G.A., Kassotakis, D., Doxastaki, A.,
+            Krasagakis, K., &amp; Manios, A. (2021).
+            Apocrine and eccrine hidrocystomas: a clinicopathological study.
+            <em>Acta Dermatovenerol Alp Pannonica Adriat</em>, 30(2), 53&ndash;56.
+          </li>
+          <li>
+            Papadakis, M., Paschos, A., Manios, A., Lehmann, P., Manios, G., &amp; Zirngibl, H. (2021).
+            Computer-aided clinical image analysis for non-invasive assessment of tumor thickness in cutaneous melanoma.
+            <em>BMC Research Notes</em>, 14(1), 232.
+          </li>
+        </ol>
+
+        <h3 class="subsection-title">Thesis</h3>
+        <ul class="pub-list">
+          <li>
+            Μανιός, Γεώργιος (2021).
+            <em>Λογισμικό για μετα-ανάλυση δεδομένων γονιδιακής έκφρασης από μικροσυστοιχίες DNA</em>.
+            Πανεπιστήμιο Θεσσαλίας.
+          </li>
+        </ul>
+      </section>
+
+      <section id="conferences" class="section">
+        <h2>Oral and Poster Presentations at Conferences</h2>
+        <ul class="simple-list">
+          <li>
+            Re-analysis of published results of Genome-Wide Association Studies with Robust Methods,
+            Polymnia V. Gkoumplia, Evangelia A. Stasi, Georgios A. Manios, Kalliopi K. Exarchou-Kouveli,
+            Konstantina E. Vennou, Panagiota Kontou and Pantelis G. Bagos, Annual Conference of the
+            Hellenic Society for Bioinformatics and Computational Biology (HSCBB23), 10 &ndash; 12 October 2023,
+            Holiday Inn, Thessaloniki.
+          </li>
+          <li>
+            pyGWAR: An open-source tool for Meta-Analysis of Genome-Wide Association Studies, Georgios A. Manios,
+            Sophia Nteli, Margarita C. Theodoropoulou, Panagiota Kontou, and Pantelis G. Bagos, Annual Conference of
+            the Hellenic Society for Bioinformatics and Computational Biology (HSCBB23), 10 &ndash; 12 October 2023,
+            Holiday Inn, Thessaloniki.
+          </li>
+          <li>
+            Manios, G., Sasilioglou, I., &amp; Gkoumplia, P. (2022). Open-source packages for meta-analysis of gene
+            expression: MAGE and MetaPcor. Presented at FOSSCOMM 2022, Lamia, Greece.
+          </li>
+          <li>
+            MetaPcor: A package for meta-analysis of Gene Expression studies with partial correlation as effect size,
+            Ioanna Sasilioglou, Georgios Manios, Polymnia Gkoumplia, Panagiota Kontou and Pantelis Bagos, Annual
+            Conference of the Hellenic Society for Bioinformatics and Computational Biology (HSCBB22), 21 &ndash; 23 October
+            2022, Ramada Plaza Thraki, Alexandroupolis, Greece.
+          </li>
+          <li>
+            MAGE: a python package for Meta-analysis of gene expression studies, Georgios Manios, Ioannis Tamposis,
+            Panagiota Kontou, Anastasios Mexias, Theodosia Charitou, Konstantina Vennou and Pantelis Bagos, Annual
+            Conference of the Hellenic Society for Bioinformatics and Computational Biology (HSCBB21), 10 &ndash; 11 December
+            2021, Pasteur Institute, Athens, Greece.
+          </li>
+        </ul>
+      </section>
+
+      <section id="training" class="section">
+        <h2>Vocational Training &amp; Workshops</h2>
+        <ul class="simple-list">
+          <li>Volos Summer School of Human Genetics 2023, University of Thessaly (12&ndash;15 June 2023), Volos, Greece.</li>
+          <li>Hidden Markov Models for biological sequence analysis: the JUCHMME package (9&ndash;10 December 2022), Department of Computer Science and Biomedical Informatics, University of Thessaly.</li>
+          <li>Genetics and Next Generation Sequencing for Bioinformatics course, 20 July 2022, Udemy.</li>
+          <li>Biopython course, 10 July 2022, Udemy.</li>
+          <li>&ldquo;Meta-analysis of OMICs Data&rdquo;, 22&ndash;23 July 2021, Department of Computer Science and Biomedical Informatics, University of Thessaly.</li>
+        </ul>
+      </section>
+
+      <section id="skills" class="section">
+        <h2>Skills &amp; Competences</h2>
+        <div class="stack-two-cols">
+          <div>
+            <h3 class="subsection-title">Pedagogical &amp; Teaching Competence</h3>
+            <p>
+              Certificate of Pedagogical and Teaching Competence (October 2023), Department of Computer
+              Science and Biomedical Informatics, University of Thessaly.
+            </p>
+
+            <h3 class="subsection-title">Languages</h3>
+            <ul class="skills-grid">
+              <li>
+                <strong>English</strong>
+                Second mother language; ECPE C2 Certificate (University of Michigan).
+              </li>
+              <li>
+                <strong>French</strong>
+                Beginner (self-taught).
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Technical Skills</h3>
+            <ul class="skills-grid">
+              <li>
+                <strong>Programming</strong>
+                Python, R, C/C++, MATLAB, Perl (very good); Java, SQL, PHP, CSS, JavaScript (good).
+              </li>
+              <li>
+                <strong>Scientific Software</strong>
+                OCTAVE, RStudio, Wolfram Alpha, Origin, STATA, SPSS.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2025 Georgios A. Manios. All rights reserved.</p>
+    </footer>
+  </div>
 </body>
 </html>
