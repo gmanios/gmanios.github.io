@@ -16,7 +16,7 @@
 
 **Aegean Scripts** is an interactive, dependency-free web app for exploring **Linear A** and **Linear B**, the two related writing systems of the Minoan and Mycenaean world (c. 1800–1200 BCE). Every sign is shown next to its Latin syllabic value; click signs to compose a text on a virtual clay tablet — the transliteration is engraved beneath each glyph, exactly as in the scholarly editions of the tablets — then print the result.
 
-🏛️ **Live demo:** https://gmanios.github.io/aegean-scripts/
+🏛️ **Live demo:** https://gmanios.github.io/aegean_scripts/
 
 ## Features
 
@@ -51,7 +51,7 @@ Sign inventories and phonetic values are taken from the **Unicode Standard**: th
 Clone or download the repository and open `aegean-scripts.html` in any modern browser — no server or installation required.
 
 ```bash
-git clone https://github.com/gmanios/aegean-scripts.git
+git clone https://github.com/gmanios/aegean_scripts.git
 cd aegean-scripts
 # then just open aegean-scripts.html (or index.html for the landing page)
 ```
@@ -62,14 +62,14 @@ The signs render through the **Noto Sans Linear A** and **Noto Sans Linear B** w
 
 1. Push these files to a repository.
 2. In **Settings → Pages**, set the source to the `main` branch (root).
-3. Your site goes live at `https://<username>.github.io/<repo>/`, with `index.html` as the landing page and the composer at `/aegean-scripts.html`.
+3. Your site goes live at `https://<username>.github.io/<repo>/`, with `index.html` as the landing page and the composer at `/aegean_scripts.html`.
 
 ## Repository structure
 
 ```
 aegean-scripts/
 ├── index.html            # Landing page (GitHub Pages entry point)
-├── aegean-scripts.html   # The composer app (single file)
+├── aegean_scripts.html   # The composer app (single file)
 └── README.md
 ```
 
