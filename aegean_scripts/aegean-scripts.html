@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Γραμμική Α &amp; Γραμμική Β — Συνθέτης Σημείων</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+Linear+A&family=Noto+Sans+Linear+B&display=swap" rel="stylesheet">
+<style>
+:root{
+  --clay:#E7DECB;        /* limestone workspace */
+  --clay-2:#DCD1BA;      /* card face */
+  --ink:#2A2018;         /* bitumen */
+  --ink-soft:#6b5c48;
+  --faience:#0E6E67;     /* Minoan teal — Linear B */
+  --faience-deep:#0a4f4a;
+  --ochre:#B4832A;       /* gold ochre — Linear A */
+  --ochre-deep:#8a6216;
+  --kiln:#221A12;        /* dark hero / tablet */
+  --kiln-2:#2e2418;
+  --line:rgba(42,32,24,.16);
+  --line-strong:rgba(42,32,24,.32);
+  --accent:var(--faience);
+  --accent-deep:var(--faience-deep);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--clay);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+.linb{font-family:'Noto Sans Linear B',serif}
+.lina{font-family:'Noto Sans Linear A',serif}
+.mono{font-family:'Space Mono',monospace}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  background:
+    radial-gradient(120% 90% at 82% -10%, rgba(14,110,103,.22), transparent 55%),
+    radial-gradient(90% 80% at 8% 120%, rgba(180,131,42,.16), transparent 60%),
+    var(--kiln);
+  color:#efe6d4;
+  padding:clamp(2.4rem,6vw,4.6rem) clamp(1.2rem,5vw,4rem) clamp(2rem,5vw,3.4rem);
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid rgba(239,230,212,.14);
+}
+.eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+  color:#c9b98f;margin:0 0 1.1rem;display:flex;gap:.9rem;align-items:center;flex-wrap:wrap;
+}
+.eyebrow::before{content:"";width:2.4rem;height:1px;background:var(--ochre)}
+.hero h1{
+  font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(2.5rem,7vw,5.2rem);line-height:.98;letter-spacing:-.01em;
+  margin:0;max-width:16ch;
+}
+.hero h1 em{font-style:italic;color:#f0d79a;font-weight:600}
+.hero p.lead{
+  max-width:52ch;margin:1.3rem 0 0;color:#d9cdb6;font-size:clamp(1rem,1.6vw,1.14rem);
+}
+.hero-strip{
+  margin-top:2.2rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;
+  font-size:clamp(1.7rem,4vw,2.4rem);color:#efe6d4;opacity:.9;
+}
+.hero-strip .sep{opacity:.4;font-size:.6em;align-self:center}
+
+/* ---------------- LAYOUT ---------------- */
+.wrap{
+  max-width:1280px;margin:0 auto;padding:clamp(1.2rem,3vw,2.4rem);
+  display:grid;grid-template-columns:1fr minmax(340px,410px);gap:clamp(1.2rem,2.4vw,2rem);
+  align-items:start;
+}
+@media(max-width:900px){ .wrap{grid-template-columns:1fr} }
+
+/* ------ palette (left) ------ */
+.panel-title{
+  font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;margin:0 0 .2rem;
+}
+.panel-sub{color:var(--ink-soft);font-size:.9rem;margin:0 0 1.2rem}
+
+.tabs{display:flex;gap:.4rem;margin-bottom:1rem;border-bottom:1px solid var(--line-strong)}
+.tab{
+  appearance:none;border:0;background:none;cursor:pointer;
+  font-family:'Fraunces',serif;font-size:1.06rem;font-weight:600;color:var(--ink-soft);
+  padding:.55rem .1rem;margin-right:1.4rem;position:relative;
+  transition:color .18s;
+}
+.tab .glyph{font-size:1.2rem;margin-right:.4rem}
+.tab[aria-selected="true"]{color:var(--ink)}
+.tab[aria-selected="true"]::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:3px 3px 0 0;
+  background:var(--accent);
+}
+
+.toolbar{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+.search{
+  flex:1;min-width:180px;display:flex;align-items:center;gap:.5rem;
+  background:var(--clay-2);border:1px solid var(--line);border-radius:10px;padding:.5rem .8rem;
+}
+.search input{
+  border:0;background:none;outline:none;font-family:'Inter',sans-serif;font-size:.92rem;
+  color:var(--ink);width:100%;
+}
+.search svg{flex-shrink:0;opacity:.5}
+
+.chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{
+  appearance:none;cursor:pointer;font-family:'Space Mono',monospace;font-size:.72rem;
+  letter-spacing:.04em;text-transform:uppercase;
+  border:1px solid var(--line-strong);background:transparent;color:var(--ink-soft);
+  padding:.38rem .7rem;border-radius:999px;transition:all .16s;
+}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--clay);border-color:var(--ink)}
+
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:.55rem;
+}
+.sign{
+  appearance:none;cursor:pointer;text-align:center;
+  background:linear-gradient(180deg,#efe7d6,var(--clay-2));
+  border:1px solid var(--line);border-radius:12px;
+  padding:.7rem .3rem .5rem;
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+  transition:transform .1s ease, box-shadow .16s, border-color .16s;
+  position:relative;
+}
+.sign:hover{transform:translateY(-2px);border-color:var(--accent);
+  box-shadow:0 6px 18px -8px rgba(42,32,24,.45)}
+.sign:active{transform:translateY(0) scale(.97)}
+.sign:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sign .g{font-size:2rem;line-height:1.1;color:var(--ink)}
+.sign .lat{font-family:'Space Mono',monospace;font-size:.82rem;font-weight:700;color:var(--accent-deep);letter-spacing:.02em}
+.sign .meaning{font-family:'Inter';font-size:.66rem;color:var(--ink-soft);line-height:1.15}
+.sign .num{position:absolute;top:.28rem;right:.4rem;font-family:'Space Mono';font-size:.54rem;color:var(--ink-soft);opacity:.6}
+.empty{grid-column:1/-1;padding:2rem;text-align:center;color:var(--ink-soft);font-size:.92rem}
+
+/* ------ tablet (right / composition) ------ */
+.tablet-wrap{position:sticky;top:1.2rem}
+.tablet{
+  background:
+    radial-gradient(140% 120% at 30% 0%, #35291a, var(--kiln) 70%);
+  color:#efe6d4;border-radius:16px;padding:1.4rem 1.3rem 1.2rem;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.05), 0 20px 40px -24px rgba(0,0,0,.6);
+  border:1px solid rgba(239,230,212,.12);
+}
+.tablet h2{
+  font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;margin:0 0 .1rem;color:#f3ead8;
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+}
+.count{font-family:'Space Mono';font-size:.7rem;color:#c9b98f;background:rgba(239,230,212,.08);
+  padding:.2rem .5rem;border-radius:6px;font-weight:400}
+.surface{
+  margin-top:.9rem;background:rgba(0,0,0,.22);border-radius:10px;
+  border:1px solid rgba(239,230,212,.09);
+  padding:1rem .9rem;min-height:170px;
+  box-shadow:inset 0 3px 10px rgba(0,0,0,.35);
+}
+.tokens{display:flex;flex-wrap:wrap;gap:.35rem .3rem;align-items:flex-end}
+.token{
+  display:flex;flex-direction:column;align-items:center;gap:.05rem;
+  padding:.2rem .28rem .1rem;border-radius:7px;position:relative;
+  animation:press .22s ease;
+}
+@keyframes press{from{transform:translateY(-5px) scale(.85);opacity:0}to{transform:none;opacity:1}}
+.token .tg{font-size:1.9rem;line-height:1;color:#f3ead8;
+  text-shadow:0 1px 0 rgba(0,0,0,.5), 0 -1px 0 rgba(255,255,255,.06)}
+.token .tl{font-family:'Space Mono';font-size:.66rem;color:#e7c987;letter-spacing:.02em}
+.token.wordgap{width:100%;height:0;padding:0}
+.token .divider{color:#8a7a5c;font-size:1.6rem;line-height:1}
+.token.ideo .tl{color:#7fd0c8}
+.placeholder{color:#8a7a5c;font-size:.9rem;text-align:center;padding:2.2rem .5rem;font-style:italic}
+
+.translit{
+  margin-top:.85rem;font-family:'Space Mono';font-size:.82rem;color:#d9cdb6;
+  word-break:break-word;background:rgba(239,230,212,.06);padding:.6rem .7rem;border-radius:8px;
+  min-height:1.2rem;
+}
+.translit .lbl{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#a99a78;margin-bottom:.25rem}
+
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem}
+.btn{
+  appearance:none;cursor:pointer;font-family:'Inter';font-size:.86rem;font-weight:500;
+  border:1px solid rgba(239,230,212,.22);background:rgba(239,230,212,.06);color:#efe6d4;
+  padding:.62rem .7rem;border-radius:9px;transition:all .15s;display:flex;align-items:center;
+  justify-content:center;gap:.4rem;
+}
+.btn:hover{background:rgba(239,230,212,.14)}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--faience);border-color:var(--faience);color:#fff;font-weight:600}
+.btn.primary:hover{background:#12837a}
+.btn.wide{grid-column:1/-1}
+.btn.ghost{background:transparent}
+
+.note{
+  margin-top:1.1rem;font-size:.76rem;color:var(--ink-soft);line-height:1.5;
+  border-left:2px solid var(--ochre);padding-left:.8rem;
+}
+footer{
+  text-align:center;padding:2rem 1rem 3rem;color:var(--ink-soft);font-size:.78rem;
+}
+footer .mono{color:var(--ink)}
+
+/* accent swap when Linear A tab active */
+body.mode-a{--accent:var(--ochre);--accent-deep:var(--ochre-deep)}
+body.mode-a .btn.primary{background:var(--ochre);border-color:var(--ochre)}
+body.mode-a .btn.primary:hover{background:#c8922f}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+/* ---------------- PRINT ---------------- */
+@media print{
+  @page{margin:2cm}
+  body{background:#fff;color:#000}
+  .hero,.no-print,.toolbar,.tabs,.grid,.panel-title,.panel-sub,.controls,footer,.note{display:none!important}
+  .wrap{display:block;max-width:none;padding:0}
+  .tablet-wrap{position:static}
+  .tablet{background:#fff;color:#000;box-shadow:none;border:1px solid #000;border-radius:0;padding:1.5cm}
+  .tablet h2{color:#000}
+  .count{display:none}
+  .surface{background:#fff;box-shadow:none;border:1px solid #999;min-height:auto}
+  .token .tg{color:#000;text-shadow:none}
+  .token .tl{color:#333}
+  .token.ideo .tl{color:#333}
+  .translit{background:#fff;color:#000;border:1px solid #999}
+  .translit .lbl{color:#555}
+  .print-head{display:block!important}
+}
+.print-head{display:none}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="eyebrow">Αιγαιακές γραφές · Κνωσός — Πύλος</p>
+  <h1>Γραμμική Α <em>&amp;</em> Γραμμική Β</h1>
+  <p class="lead">Πάτα τα σημεία και σύνθεσε ένα κείμενο. Κάθε σύμβολο εγχαράσσεται στην πινακίδα μαζί με τη λατινική του συλλαβή — όπως στις επιστημονικές εκδόσεις των πινακίδων. Μετά τύπωσέ το.</p>
+  <div class="hero-strip linb" aria-hidden="true">
+    𐀀 𐀖 𐀛 𐀰 <span class="sep">·</span> 𐀏 𐀜 𐀰 <span class="sep">·</span> 𐂀 𐂖 𐂎
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- LEFT: palette -->
+  <section aria-label="Πίνακας σημείων">
+    <h2 class="panel-title">Πίνακας σημείων</h2>
+    <p class="panel-sub">Επίλεξε γραφή, φίλτραρε ή αναζήτησε, και πάτα ένα σημείο για να το προσθέσεις.</p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-mode="b">
+        <span class="glyph linb">𐀊</span>Γραμμική Β</button>
+      <button class="tab" role="tab" aria-selected="false" data-mode="a">
+        <span class="glyph lina">𐘀</span>Γραμμική Α</button>
+    </div>
+
+    <div class="toolbar">
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Αναζήτηση: π.χ. ka, wine, ταύρος…" autocomplete="off">
+      </label>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- RIGHT: tablet -->
+  <aside class="tablet-wrap">
+    <div class="tablet">
+      <div class="print-head" style="text-align:center;margin-bottom:1rem">
+        <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600">Σύνθεση σε Αιγαιακή γραφή</div>
+      </div>
+      <h2>Η πινακίδα σου <span class="count" id="count">0 σημεία</span></h2>
+      <div class="surface">
+        <div class="tokens" id="tokens"></div>
+        <div class="placeholder" id="placeholder">Η πινακίδα είναι άδεια — πάτα σημεία από αριστερά.</div>
+      </div>
+      <div class="translit" id="translit-box" hidden>
+        <span class="lbl">Μεταγραφή</span>
+        <span id="translit"></span>
+      </div>
+
+      <div class="controls no-print">
+        <button class="btn" id="btn-space">␣ Κενό λέξης</button>
+        <button class="btn" id="btn-del">⌫ Διαγραφή</button>
+        <button class="btn ghost" id="btn-copy">⧉ Αντιγραφή</button>
+        <button class="btn ghost" id="btn-clear">✕ Καθαρισμός</button>
+        <button class="btn primary wide" id="btn-print">🖨 Τύπωσε το κείμενο</button>
+      </div>
+    </div>
+
+    <p class="note no-print">
+      Η <strong>Γραμμική Β</strong> είναι αποκρυπτογραφημένη (μυκηναϊκή ελληνική)· οι συλλαβικές αξίες είναι βεβαιωμένες.
+      Η <strong>Γραμμική Α</strong> παραμένει <em>μη αποκρυπτογραφημένη</em>: οι λατινικές αξίες εδώ είναι
+      συμβατικές, βασισμένες στα ομόμορφα σημεία «AB» της Γραμμικής Β και δεν αποδίδουν τη γλώσσα των Μινωιτών.
+      Το «·» είναι διαχωριστικό λέξεων.
+    </p>
+  </aside>
+</main>
+
+<footer>
+  Σημεία &amp; συλλαβικές αξίες από το πρότυπο <span class="mono">Unicode</span> (Linear B Syllabary/Ideograms, Linear A).
+  Γραμματοσειρές σημείων: <span class="mono">Noto Sans Linear A/B</span>.
+</footer>
+
+<script>
+const DATA = {"core": [{"g": "𐀀", "lat": "a", "n": "008", "u": "U+10000"}, {"g": "𐀁", "lat": "e", "n": "038", "u": "U+10001"}, {"g": "𐀂", "lat": "i", "n": "028", "u": "U+10002"}, {"g": "𐀃", "lat": "o", "n": "061", "u": "U+10003"}, {"g": "𐀄", "lat": "u", "n": "010", "u": "U+10004"}, {"g": "𐀅", "lat": "da", "n": "001", "u": "U+10005"}, {"g": "𐀆", "lat": "de", "n": "045", "u": "U+10006"}, {"g": "𐀇", "lat": "di", "n": "007", "u": "U+10007"}, {"g": "𐀈", "lat": "do", "n": "014", "u": "U+10008"}, {"g": "𐀉", "lat": "du", "n": "051", "u": "U+10009"}, {"g": "𐀊", "lat": "ja", "n": "057", "u": "U+1000A"}, {"g": "𐀋", "lat": "je", "n": "046", "u": "U+1000B"}, {"g": "𐀍", "lat": "jo", "n": "036", "u": "U+1000D"}, {"g": "𐀎", "lat": "ju", "n": "065", "u": "U+1000E"}, {"g": "𐀏", "lat": "ka", "n": "077", "u": "U+1000F"}, {"g": "𐀐", "lat": "ke", "n": "044", "u": "U+10010"}, {"g": "𐀑", "lat": "ki", "n": "067", "u": "U+10011"}, {"g": "𐀒", "lat": "ko", "n": "070", "u": "U+10012"}, {"g": "𐀓", "lat": "ku", "n": "081", "u": "U+10013"}, {"g": "𐀔", "lat": "ma", "n": "080", "u": "U+10014"}, {"g": "𐀕", "lat": "me", "n": "013", "u": "U+10015"}, {"g": "𐀖", "lat": "mi", "n": "073", "u": "U+10016"}, {"g": "𐀗", "lat": "mo", "n": "015", "u": "U+10017"}, {"g": "𐀘", "lat": "mu", "n": "023", "u": "U+10018"}, {"g": "𐀙", "lat": "na", "n": "006", "u": "U+10019"}, {"g": "𐀚", "lat": "ne", "n": "024", "u": "U+1001A"}, {"g": "𐀛", "lat": "ni", "n": "030", "u": "U+1001B"}, {"g": "𐀜", "lat": "no", "n": "052", "u": "U+1001C"}, {"g": "𐀝", "lat": "nu", "n": "055", "u": "U+1001D"}, {"g": "𐀞", "lat": "pa", "n": "003", "u": "U+1001E"}, {"g": "𐀟", "lat": "pe", "n": "072", "u": "U+1001F"}, {"g": "𐀠", "lat": "pi", "n": "039", "u": "U+10020"}, {"g": "𐀡", "lat": "po", "n": "011", "u": "U+10021"}, {"g": "𐀢", "lat": "pu", "n": "050", "u": "U+10022"}, {"g": "𐀣", "lat": "qa", "n": "016", "u": "U+10023"}, {"g": "𐀤", "lat": "qe", "n": "078", "u": "U+10024"}, {"g": "𐀥", "lat": "qi", "n": "021", "u": "U+10025"}, {"g": "𐀦", "lat": "qo", "n": "032", "u": "U+10026"}, {"g": "𐀨", "lat": "ra", "n": "060", "u": "U+10028"}, {"g": "𐀩", "lat": "re", "n": "027", "u": "U+10029"}, {"g": "𐀪", "lat": "ri", "n": "053", "u": "U+1002A"}, {"g": "𐀫", "lat": "ro", "n": "002", "u": "U+1002B"}, {"g": "𐀬", "lat": "ru", "n": "026", "u": "U+1002C"}, {"g": "𐀭", "lat": "sa", "n": "031", "u": "U+1002D"}, {"g": "𐀮", "lat": "se", "n": "009", "u": "U+1002E"}, {"g": "𐀯", "lat": "si", "n": "041", "u": "U+1002F"}, {"g": "𐀰", "lat": "so", "n": "012", "u": "U+10030"}, {"g": "𐀱", "lat": "su", "n": "058", "u": "U+10031"}, {"g": "𐀲", "lat": "ta", "n": "059", "u": "U+10032"}, {"g": "𐀳", "lat": "te", "n": "004", "u": "U+10033"}, {"g": "𐀴", "lat": "ti", "n": "037", "u": "U+10034"}, {"g": "𐀵", "lat": "to", "n": "005", "u": "U+10035"}, {"g": "𐀶", "lat": "tu", "n": "069", "u": "U+10036"}, {"g": "𐀷", "lat": "wa", "n": "054", "u": "U+10037"}, {"g": "𐀸", "lat": "we", "n": "075", "u": "U+10038"}, {"g": "𐀹", "lat": "wi", "n": "040", "u": "U+10039"}, {"g": "𐀺", "lat": "wo", "n": "042", "u": "U+1003A"}, {"g": "𐀼", "lat": "za", "n": "017", "u": "U+1003C"}, {"g": "𐀽", "lat": "ze", "n": "074", "u": "U+1003D"}, {"g": "𐀿", "lat": "zo", "n": "020", "u": "U+1003F"}], "special": [{"g": "𐁀", "lat": "a2", "n": "025", "u": "U+10040"}, {"g": "𐁁", "lat": "a3", "n": "043", "u": "U+10041"}, {"g": "𐁂", "lat": "au", "n": "085", "u": "U+10042"}, {"g": "𐁃", "lat": "dwe", "n": "071", "u": "U+10043"}, {"g": "𐁄", "lat": "dwo", "n": "090", "u": "U+10044"}, {"g": "𐁅", "lat": "nwa", "n": "048", "u": "U+10045"}, {"g": "𐁆", "lat": "pu2", "n": "029", "u": "U+10046"}, {"g": "𐁇", "lat": "pte", "n": "062", "u": "U+10047"}, {"g": "𐁈", "lat": "ra2", "n": "076", "u": "U+10048"}, {"g": "𐁉", "lat": "ra3", "n": "033", "u": "U+10049"}, {"g": "𐁊", "lat": "ro2", "n": "068", "u": "U+1004A"}, {"g": "𐁋", "lat": "ta2", "n": "066", "u": "U+1004B"}, {"g": "𐁌", "lat": "twe", "n": "087", "u": "U+1004C"}, {"g": "𐁍", "lat": "two", "n": "091", "u": "U+1004D"}], "ideograms": [{"g": "𐂀", "en": "Man", "el": "άνδρας", "u": "U+10080"}, {"g": "𐂁", "en": "Woman", "el": "γυναίκα", "u": "U+10081"}, {"g": "𐂂", "en": "Deer", "el": "ελάφι", "u": "U+10082"}, {"g": "𐂃", "en": "Equid", "el": "ιπποειδές", "u": "U+10083"}, {"g": "𐂄", "en": "Mare", "el": "φοράδα", "u": "U+10084"}, {"g": "𐂅", "en": "Stallion", "el": "επιβήτορας", "u": "U+10085"}, {"g": "𐂆", "en": "Ewe", "el": "προβατίνα", "u": "U+10086"}, {"g": "𐂇", "en": "Ram", "el": "κριάρι", "u": "U+10087"}, {"g": "𐂈", "en": "She-Goat", "el": "κατσίκα", "u": "U+10088"}, {"g": "𐂉", "en": "He-Goat", "el": "τράγος", "u": "U+10089"}, {"g": "𐂊", "en": "Sow", "el": "γουρούνα", "u": "U+1008A"}, {"g": "𐂋", "en": "Boar", "el": "κάπρος", "u": "U+1008B"}, {"g": "𐂌", "en": "Cow", "el": "αγελάδα", "u": "U+1008C"}, {"g": "𐂍", "en": "Bull", "el": "ταύρος", "u": "U+1008D"}, {"g": "𐂎", "en": "Wheat", "el": "σιτάρι", "u": "U+1008E"}, {"g": "𐂏", "en": "Barley", "el": "κριθάρι", "u": "U+1008F"}, {"g": "𐂐", "en": "Olive", "el": "ελιά", "u": "U+10090"}, {"g": "𐂑", "en": "Spice", "el": "μπαχαρικό", "u": "U+10091"}, {"g": "𐂒", "en": "Cyperus", "el": "κύπερη", "u": "U+10092"}, {"g": "𐂕", "en": "Oil", "el": "λάδι", "u": "U+10095"}, {"g": "𐂖", "en": "Wine", "el": "κρασί", "u": "U+10096"}, {"g": "𐂚", "en": "Bronze", "el": "χαλκός", "u": "U+1009A"}, {"g": "𐂛", "en": "Gold", "el": "χρυσός", "u": "U+1009B"}, {"g": "𐂝", "en": "Wool", "el": "μαλλί", "u": "U+1009D"}, {"g": "𐂠", "en": "Horn", "el": "κέρας", "u": "U+100A0"}, {"g": "𐂧", "en": "Cloth", "el": "ύφασμα", "u": "U+100A7"}, {"g": "𐂪", "en": "Garment", "el": "ένδυμα", "u": "U+100AA"}, {"g": "𐂫", "en": "Armour", "el": "πανοπλία", "u": "U+100AB"}, {"g": "𐂵", "en": "Month", "el": "μήνας", "u": "U+100B5"}, {"g": "𐂷", "en": "Tree", "el": "δέντρο", "u": "U+100B7"}, {"g": "𐃃", "en": "Helmet", "el": "κράνος", "u": "U+100C3"}, {"g": "𐃄", "en": "Footstool", "el": "υποπόδιο", "u": "U+100C4"}, {"g": "𐃅", "en": "Bathtub", "el": "λουτήρας", "u": "U+100C5"}, {"g": "𐃆", "en": "Spear", "el": "δόρυ", "u": "U+100C6"}, {"g": "𐃇", "en": "Arrow", "el": "βέλος", "u": "U+100C7"}, {"g": "𐃉", "en": "Sword", "el": "ξίφος", "u": "U+100C9"}, {"g": "𐃌", "en": "Wheeled Chariot", "el": "άρμα (τροχοφόρο)", "u": "U+100CC"}, {"g": "𐃍", "en": "Chariot", "el": "άρμα", "u": "U+100CD"}, {"g": "𐃎", "en": "Chariot Frame", "el": "πλαίσιο άρματος", "u": "U+100CE"}, {"g": "𐃏", "en": "Wheel", "el": "τροχός", "u": "U+100CF"}, {"g": "𐃘", "en": "Dart", "el": "ακόντιο", "u": "U+100D8"}], "linearA": [{"g": "𐘀", "lat": "da", "n": "AB001", "u": "U+10600"}, {"g": "𐘁", "lat": "ro", "n": "AB002", "u": "U+10601"}, {"g": "𐘂", "lat": "pa", "n": "AB003", "u": "U+10602"}, {"g": "𐘃", "lat": "te", "n": "AB004", "u": "U+10603"}, {"g": "𐘄", "lat": "to", "n": "AB005", "u": "U+10604"}, {"g": "𐘅", "lat": "na", "n": "AB006", "u": "U+10605"}, {"g": "𐘆", "lat": "di", "n": "AB007", "u": "U+10606"}, {"g": "𐘇", "lat": "a", "n": "AB008", "u": "U+10607"}, {"g": "𐘈", "lat": "se", "n": "AB009", "u": "U+10608"}, {"g": "𐘉", "lat": "u", "n": "AB010", "u": "U+10609"}, {"g": "𐘊", "lat": "po", "n": "AB011", "u": "U+1060A"}, {"g": "𐘋", "lat": "me", "n": "AB013", "u": "U+1060B"}, {"g": "𐘌", "lat": "qa", "n": "AB016", "u": "U+1060C"}, {"g": "𐘍", "lat": "za", "n": "AB017", "u": "U+1060D"}, {"g": "𐘎", "lat": "zo", "n": "AB020", "u": "U+1060E"}, {"g": "𐘏", "lat": "qi", "n": "AB021", "u": "U+1060F"}, {"g": "𐘕", "lat": "mu", "n": "AB023", "u": "U+10615"}, {"g": "𐘗", "lat": "ne", "n": "AB024", "u": "U+10617"}, {"g": "𐘘", "lat": "ru", "n": "AB026", "u": "U+10618"}, {"g": "𐘙", "lat": "re", "n": "AB027", "u": "U+10619"}, {"g": "𐘚", "lat": "i", "n": "AB028", "u": "U+1061A"}, {"g": "𐘝", "lat": "ni", "n": "AB030", "u": "U+1061D"}, {"g": "𐘞", "lat": "sa", "n": "AB031", "u": "U+1061E"}, {"g": "𐘠", "lat": "ti", "n": "AB037", "u": "U+10620"}, {"g": "𐘡", "lat": "e", "n": "AB038", "u": "U+10621"}, {"g": "𐘢", "lat": "pi", "n": "AB039", "u": "U+10622"}, {"g": "𐘣", "lat": "wi", "n": "AB040", "u": "U+10623"}, {"g": "𐘤", "lat": "si", "n": "AB041", "u": "U+10624"}, {"g": "𐘥", "lat": "ke", "n": "AB044", "u": "U+10625"}, {"g": "𐘦", "lat": "de", "n": "AB045", "u": "U+10626"}, {"g": "𐘧", "lat": "je", "n": "AB046", "u": "U+10627"}, {"g": "𐘫", "lat": "pu", "n": "AB050", "u": "U+1062B"}, {"g": "𐘬", "lat": "du", "n": "AB051", "u": "U+1062C"}, {"g": "𐘭", "lat": "ri", "n": "AB053", "u": "U+1062D"}, {"g": "𐘮", "lat": "wa", "n": "AB054", "u": "U+1062E"}, {"g": "𐘯", "lat": "nu", "n": "AB055", "u": "U+1062F"}, {"g": "𐘱", "lat": "ja", "n": "AB057", "u": "U+10631"}, {"g": "𐘲", "lat": "su", "n": "AB058", "u": "U+10632"}, {"g": "𐘳", "lat": "ta", "n": "AB059", "u": "U+10633"}, {"g": "𐘴", "lat": "ra", "n": "AB060", "u": "U+10634"}, {"g": "𐘵", "lat": "o", "n": "AB061", "u": "U+10635"}, {"g": "𐘶", "lat": "ju", "n": "AB065", "u": "U+10636"}, {"g": "𐘸", "lat": "ki", "n": "AB067", "u": "U+10638"}, {"g": "𐘹", "lat": "tu", "n": "AB069", "u": "U+10639"}, {"g": "𐘺", "lat": "ko", "n": "AB070", "u": "U+1063A"}, {"g": "𐘻", "lat": "mi", "n": "AB073", "u": "U+1063B"}, {"g": "𐘼", "lat": "ze", "n": "AB074", "u": "U+1063C"}, {"g": "𐘾", "lat": "ka", "n": "AB077", "u": "U+1063E"}, {"g": "𐘿", "lat": "qe", "n": "AB078", "u": "U+1063F"}, {"g": "𐙁", "lat": "ma", "n": "AB080", "u": "U+10641"}, {"g": "𐙂", "lat": "ku", "n": "AB081", "u": "U+10642"}]};
+
+const state = { mode:'b', filter:'all', query:'', tokens:[] };
+
+const GROUPS = {
+  b:[
+    {key:'core', label:'Συλλαβογράμματα'},
+    {key:'special', label:'Ειδικά σημεία'},
+    {key:'ideograms', label:'Ιδεογράμματα'},
+    {key:'all', label:'Όλα'},
+  ],
+  a:[ {key:'linearA', label:'Συλλαβογράμματα'} ]
+};
+
+const grid = document.getElementById('grid');
+const chipsEl = document.getElementById('chips');
+const searchEl = document.getElementById('search');
+const tokensEl = document.getElementById('tokens');
+const placeholderEl = document.getElementById('placeholder');
+const countEl = document.getElementById('count');
+const translitBox = document.getElementById('translit-box');
+const translitEl = document.getElementById('translit');
+
+function currentPool(){
+  if(state.mode==='a') return DATA.linearA.map(s=>({...s,kind:'a'}));
+  let pool=[];
+  const add=(arr,kind)=>arr.forEach(s=>pool.push({...s,kind}));
+  if(state.filter==='all'){ add(DATA.core,'b'); add(DATA.special,'b'); add(DATA.ideograms,'ideo'); }
+  else if(state.filter==='core') add(DATA.core,'b');
+  else if(state.filter==='special') add(DATA.special,'b');
+  else if(state.filter==='ideograms') add(DATA.ideograms,'ideo');
+  return pool;
+}
+
+function matches(s,q){
+  if(!q) return true;
+  q=q.toLowerCase().trim();
+  return (s.lat&&s.lat.includes(q)) || (s.en&&s.en.toLowerCase().includes(q)) ||
+         (s.el&&s.el.toLowerCase().includes(q)) || (s.n&&s.n.toLowerCase().includes(q));
+}
+
+function renderChips(){
+  chipsEl.innerHTML='';
+  GROUPS[state.mode].forEach(g=>{
+    const b=document.createElement('button');
+    b.className='chip'; b.textContent=g.label;
+    b.setAttribute('aria-pressed', state.filter===g.key);
+    b.onclick=()=>{ state.filter=g.key; renderChips(); renderGrid(); };
+    chipsEl.appendChild(b);
+  });
+}
+
+function renderGrid(){
+  const font = state.mode==='a' ? 'lina' : 'linb';
+  const pool = currentPool().filter(s=>matches(s,state.query));
+  grid.innerHTML='';
+  if(!pool.length){
+    grid.innerHTML='<div class="empty">Κανένα σημείο δεν ταιριάζει με «'+state.query+'».</div>';
+    return;
+  }
+  const frag=document.createDocumentFragment();
+  pool.forEach(s=>{
+    const btn=document.createElement('button');
+    btn.className='sign';
+    const isIdeo = s.kind==='ideo';
+    const label = isIdeo ? s.el : s.lat;
+    btn.title = (isIdeo? s.en+' · '+s.el : s.lat)+'  ('+ (s.n?s.n+' · ':'') + s.u +')';
+    btn.innerHTML =
+      (s.n?'<span class="num">'+s.n.replace('AB','')+'</span>':'')+
+      '<span class="g '+font+'">'+s.g+'</span>'+
+      (isIdeo
+        ? '<span class="meaning">'+s.el+'</span>'
+        : '<span class="lat">'+s.lat+'</span>');
+    btn.onclick=()=>addToken(s,font);
+    frag.appendChild(btn);
+  });
+  grid.appendChild(frag);
+}
+
+function addToken(s,font){
+  const isIdeo=s.kind==='ideo';
+  state.tokens.push({
+    g:s.g, font,
+    lat: isIdeo ? '['+s.en+']' : s.lat,
+    ideo:isIdeo
+  });
+  renderTokens();
+}
+function addGap(){ state.tokens.push({gap:true}); renderTokens(); }
+function del(){ state.tokens.pop(); renderTokens(); }
+function clearAll(){ state.tokens=[]; renderTokens(); }
+
+function renderTokens(){
+  tokensEl.innerHTML='';
+  const signs = state.tokens.filter(t=>!t.gap);
+  placeholderEl.style.display = signs.length? 'none':'block';
+  state.tokens.forEach(t=>{
+    const d=document.createElement('div');
+    if(t.gap){
+      d.className='token wordgap';
+      d.innerHTML='<span class="divider">·</span>';
+      d.style.width='auto';d.style.height='auto';
+    }else{
+      d.className='token'+(t.ideo?' ideo':'');
+      d.innerHTML='<span class="tg '+t.font+'">'+t.g+'</span><span class="tl">'+t.lat+'</span>';
+    }
+    tokensEl.appendChild(d);
+  });
+  // count
+  countEl.textContent = signs.length + (signs.length===1?' σημείο':' σημεία');
+  // transliteration line: a-mi-ni-so · ...
+  let parts=[], cur=[];
+  state.tokens.forEach(t=>{
+    if(t.gap){ if(cur.length){parts.push(cur.join('-'));cur=[];} }
+    else cur.push(t.lat);
+  });
+  if(cur.length) parts.push(cur.join('-'));
+  const line = parts.join('  ·  ');
+  if(line){ translitBox.hidden=false; translitEl.textContent=line; }
+  else translitBox.hidden=true;
+}
+
+/* tabs */
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
+    tab.setAttribute('aria-selected','true');
+    state.mode=tab.dataset.mode;
+    state.filter = state.mode==='a' ? 'linearA' : 'all';
+    document.body.classList.toggle('mode-a', state.mode==='a');
+    renderChips(); renderGrid();
+  };
+});
+
+/* controls */
+document.getElementById('btn-space').onclick=addGap;
+document.getElementById('btn-del').onclick=del;
+document.getElementById('btn-clear').onclick=clearAll;
+document.getElementById('btn-print').onclick=()=>window.print();
+document.getElementById('btn-copy').onclick=async()=>{
+  const glyphs = state.tokens.map(t=>t.gap?'·':t.g).join('');
+  const txt = glyphs + (translitEl.textContent? '\n'+translitEl.textContent : '');
+  try{ await navigator.clipboard.writeText(txt);
+    const b=document.getElementById('btn-copy'); const o=b.textContent;
+    b.textContent='✓ Αντιγράφηκε'; setTimeout(()=>b.textContent=o,1400);
+  }catch(e){}
+};
+searchEl.addEventListener('input',e=>{ state.query=e.target.value; renderGrid(); });
+
+/* keyboard: backspace deletes last, space adds gap when not typing in search */
+document.addEventListener('keydown',e=>{
+  if(document.activeElement===searchEl) return;
+  if(e.key==='Backspace'){ e.preventDefault(); del(); }
+  if(e.key===' '){ e.preventDefault(); addGap(); }
+});
+
+renderChips(); renderGrid(); renderTokens();
+</script>
+</body>
+</html>

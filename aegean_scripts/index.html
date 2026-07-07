@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aegean Scripts — Linear A &amp; Linear B Sign Composer</title>
+<meta name="description" content="An interactive, single-file web app for exploring Linear A and Linear B. Click signs to compose a text on a virtual clay tablet, with Latin transliteration beneath each glyph, then print it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+Linear+A&family=Noto+Sans+Linear+B&display=swap" rel="stylesheet">
+<style>
+:root{
+  --clay:#E7DECB; --clay-2:#DCD1BA; --ink:#2A2018; --ink-soft:#6b5c48;
+  --faience:#0E6E67; --faience-deep:#0a4f4a;
+  --ochre:#B4832A; --ochre-deep:#8a6216;
+  --kiln:#221A12; --kiln-2:#2e2418;
+  --line:rgba(42,32,24,.16); --line-strong:rgba(42,32,24,.30);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--clay);color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+.linb{font-family:'Noto Sans Linear B',serif}
+.lina{font-family:'Noto Sans Linear A',serif}
+.mono{font-family:'Space Mono',monospace}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(1.2rem,5vw,2rem)}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(34,26,18,.9);
+  backdrop-filter:blur(8px);border-bottom:1px solid rgba(239,230,212,.12);color:#efe6d4}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;letter-spacing:.01em;
+  display:flex;align-items:center;gap:.6rem}
+.brand .mark{font-family:'Noto Sans Linear B';font-size:1.2rem;color:#f0d79a}
+.topnav{display:flex;gap:1.4rem;align-items:center;font-size:.9rem}
+.topnav a{color:#d9cdb6;text-decoration:none;transition:color .15s}
+.topnav a:hover{color:#fff}
+.topnav a.gh{border:1px solid rgba(239,230,212,.28);padding:.35rem .8rem;border-radius:8px}
+@media(max-width:640px){ .topnav a:not(.gh){display:none} }
+
+/* ---------- hero ---------- */
+.hero{background:
+    radial-gradient(120% 90% at 84% -10%, rgba(14,110,103,.24), transparent 55%),
+    radial-gradient(90% 90% at 6% 118%, rgba(180,131,42,.18), transparent 60%),
+    var(--kiln);
+  color:#efe6d4;padding:clamp(3rem,8vw,6rem) 0 clamp(2.5rem,6vw,4rem);
+  border-bottom:1px solid rgba(239,230,212,.12);position:relative;overflow:hidden}
+.eyebrow{font-family:'Space Mono';font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+  color:#c9b98f;margin:0 0 1.2rem;display:flex;gap:.9rem;align-items:center}
+.eyebrow::before{content:"";width:2.4rem;height:1px;background:var(--ochre)}
+.hero h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.6rem,8vw,5.4rem);
+  line-height:.96;letter-spacing:-.01em;margin:0;max-width:15ch}
+.hero h1 em{font-style:italic;color:#f0d79a;font-weight:600}
+.hero .lead{max-width:56ch;margin:1.4rem 0 0;color:#d9cdb6;font-size:clamp(1.02rem,1.7vw,1.18rem)}
+.cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.cta{appearance:none;cursor:pointer;text-decoration:none;font-family:'Inter';font-weight:600;
+  font-size:.98rem;padding:.8rem 1.4rem;border-radius:11px;display:inline-flex;align-items:center;
+  gap:.55rem;transition:transform .12s, background .15s, box-shadow .2s;border:1px solid transparent}
+.cta.primary{background:var(--faience);color:#fff;box-shadow:0 14px 30px -14px rgba(14,110,103,.9)}
+.cta.primary:hover{background:#12837a;transform:translateY(-2px)}
+.cta.ghost{background:transparent;color:#efe6d4;border-color:rgba(239,230,212,.3)}
+.cta.ghost:hover{background:rgba(239,230,212,.08)}
+
+/* live word demo */
+.demo{margin-top:2.6rem;display:flex;align-items:baseline;gap:1.2rem;flex-wrap:wrap;
+  border-top:1px solid rgba(239,230,212,.12);padding-top:1.6rem;min-height:3.4rem}
+.demo .glyphs{font-family:'Noto Sans Linear B';font-size:clamp(2rem,5vw,2.8rem);color:#f3ead8;
+  line-height:1;letter-spacing:.06em}
+.demo .read{display:flex;flex-direction:column;gap:.15rem}
+.demo .translit{font-family:'Space Mono';font-size:1rem;color:#e7c987;letter-spacing:.03em}
+.demo .gloss{font-size:.85rem;color:#a99a78;font-style:italic}
+.demo .cursor{display:inline-block;width:.55ch;background:#e7c987;animation:blink 1s steps(1) infinite;
+  color:transparent}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- preview window ---------- */
+.section{padding:clamp(3rem,7vw,5rem) 0}
+.section-eyebrow{font-family:'Space Mono';font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ochre-deep);margin:0 0 .7rem}
+.section h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.7rem,4vw,2.6rem);
+  margin:0 0 .6rem;letter-spacing:-.01em}
+.section .intro{max-width:60ch;color:var(--ink-soft);margin:0 0 2.2rem;font-size:1.02rem}
+
+.window{border-radius:16px;overflow:hidden;border:1px solid var(--line-strong);
+  box-shadow:0 40px 80px -40px rgba(42,32,24,.5);background:var(--kiln)}
+.window .bar{height:38px;display:flex;align-items:center;gap:.5rem;padding:0 1rem;
+  background:var(--kiln-2);border-bottom:1px solid rgba(239,230,212,.1)}
+.window .dot{width:11px;height:11px;border-radius:50%;background:rgba(239,230,212,.25)}
+.window .addr{margin-left:.8rem;font-family:'Space Mono';font-size:.72rem;color:#c9b98f;
+  background:rgba(0,0,0,.25);padding:.2rem .7rem;border-radius:6px}
+.window iframe{width:100%;height:660px;border:0;background:var(--clay);display:block}
+@media(max-width:640px){ .window iframe{height:560px} }
+.preview-actions{margin-top:1rem;display:flex;justify-content:flex-end}
+.preview-actions a{font-family:'Space Mono';font-size:.8rem;color:var(--faience-deep);
+  text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+
+/* ---------- features ---------- */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.card{background:linear-gradient(180deg,#efe7d6,var(--clay-2));border:1px solid var(--line);
+  border-radius:14px;padding:1.5rem 1.4rem;position:relative}
+.card .k{font-family:'Space Mono';font-size:.72rem;color:var(--ink-soft);position:absolute;top:1.1rem;right:1.2rem}
+.card .ic{font-family:'Noto Sans Linear B';font-size:1.7rem;color:var(--faience-deep);line-height:1}
+.card h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;margin:.7rem 0 .4rem}
+.card p{margin:0;color:var(--ink-soft);font-size:.94rem}
+
+/* ---------- scripts comparison ---------- */
+.scripts{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:720px){ .scripts{grid-template-columns:1fr} }
+.script{border-radius:14px;padding:1.6rem 1.5rem;border:1px solid var(--line)}
+.script.b{background:linear-gradient(180deg,rgba(14,110,103,.10),rgba(14,110,103,.03));
+  border-color:rgba(14,110,103,.35)}
+.script.a{background:linear-gradient(180deg,rgba(180,131,42,.10),rgba(180,131,42,.03));
+  border-color:rgba(180,131,42,.35)}
+.script .tag{font-family:'Space Mono';font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  display:inline-block;padding:.25rem .6rem;border-radius:6px;margin-bottom:.9rem;font-weight:700}
+.script.b .tag{background:var(--faience);color:#fff}
+.script.a .tag{background:var(--ochre);color:#fff}
+.script .row{font-family:'Noto Sans Linear B';font-size:1.9rem;color:var(--ink);letter-spacing:.08em;margin-bottom:.6rem}
+.script.a .row{font-family:'Noto Sans Linear A'}
+.script h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.35rem;margin:.2rem 0 .5rem}
+.script p{margin:0;color:var(--ink-soft);font-size:.95rem}
+.script p + p{margin-top:.7rem}
+.script .status{font-weight:600;color:var(--ink)}
+
+/* ---------- numbers ---------- */
+.numbers{background:var(--kiln);color:#efe6d4;border-radius:16px;padding:clamp(1.8rem,4vw,2.6rem);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center}
+@media(max-width:640px){ .numbers{grid-template-columns:repeat(2,1fr)} }
+.numbers .n{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.2rem,5vw,3.2rem);
+  color:#f0d79a;line-height:1}
+.numbers .l{font-size:.82rem;color:#c9b98f;margin-top:.4rem;line-height:1.35}
+
+/* ---------- note ---------- */
+.callout{border-left:3px solid var(--ochre);background:var(--clay-2);border-radius:0 12px 12px 0;
+  padding:1.2rem 1.4rem;font-size:.95rem;color:var(--ink-soft);max-width:70ch}
+.callout strong{color:var(--ink)}
+
+/* ---------- footer ---------- */
+footer{background:var(--kiln);color:#d9cdb6;padding:clamp(2.5rem,5vw,3.5rem) 0;
+  border-top:1px solid rgba(239,230,212,.12);font-size:.9rem}
+footer .grid{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:flex-end}
+footer .author{font-family:'Fraunces',serif;font-size:1.3rem;color:#efe6d4;font-weight:600;margin:0 0 .3rem}
+footer a{color:#e7c987;text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .credit{font-size:.8rem;color:#a99a78;max-width:40ch}
+
+@media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important;scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark">𐀊</span>Aegean Scripts</div>
+    <nav class="topnav">
+      <a href="#preview">Preview</a>
+      <a href="#features">Features</a>
+      <a href="#scripts">The scripts</a>
+      <a class="gh" href="https://github.com/gmanios/aegean-scripts" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Bronze Age Aegean · Knossos — Pylos</p>
+    <h1>Linear A <em>&amp;</em> Linear B, at your fingertips</h1>
+    <p class="lead">An interactive, single-file web app for the syllabograms and ideograms of the Minoan and Mycenaean world. Click signs to write on a virtual clay tablet — the Latin transliteration is engraved beneath each glyph — then print your text.</p>
+    <div class="cta-row">
+      <a class="cta primary" href="aegean-scripts.html">
+        <span class="linb">𐀱</span> Launch the composer</a>
+      <a class="cta ghost" href="https://github.com/gmanios/aegean-scripts" target="_blank" rel="noopener">View source on GitHub</a>
+    </div>
+
+    <div class="demo" aria-hidden="true">
+      <span class="glyphs" id="demo-glyphs">𐀒𐀜𐀰</span>
+      <span class="read">
+        <span class="translit" id="demo-translit">ko-no-so</span>
+        <span class="gloss" id="demo-gloss">“Knossos”</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- PREVIEW -->
+  <section class="section" id="preview">
+    <div class="wrap">
+      <p class="section-eyebrow">Live · right here</p>
+      <h2>The composer, running below</h2>
+      <p class="intro">This is the real app embedded in the page. Try it: pick a script, tap signs, and watch them press into the clay. For the full experience — and printing — open it in its own tab.</p>
+      <div class="window">
+        <div class="bar" aria-hidden="true">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="addr">aegean-scripts.html</span>
+        </div>
+        <iframe src="aegean-scripts.html" title="Aegean Scripts composer" loading="lazy"></iframe>
+      </div>
+      <div class="preview-actions">
+        <a href="aegean-scripts.html">Open the full app in a new view →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features" style="padding-top:0">
+    <div class="wrap">
+      <p class="section-eyebrow">What it does</p>
+      <h2>Four things, done well</h2>
+      <div class="features">
+        <div class="card"><span class="k">01</span><div class="ic linb">𐀀</div>
+          <h3>Signs beside syllables</h3>
+          <p>Every sign is paired with its Latin value — or, for ideograms, its meaning (𐂖 → wine). Sign number and Unicode point on hover.</p></div>
+        <div class="card"><span class="k">02</span><div class="ic linb">𐀱</div>
+          <h3>Compose on a tablet</h3>
+          <p>Click to engrave signs into the clay panel. Each token stacks the glyph over its reading, and a hyphenated transliteration builds live.</p></div>
+        <div class="card"><span class="k">03</span><div class="ic linb">𐀏</div>
+          <h3>Search &amp; two scripts</h3>
+          <p>Switch between Linear B (syllabograms · special signs · ideograms) and Linear A. Filter or search by value, number or meaning.</p></div>
+        <div class="card"><span class="k">04</span><div class="ic linb">𐀵</div>
+          <h3>Print &amp; copy</h3>
+          <p>A dedicated print layout outputs the clean tablet and its transliteration. One click copies both glyphs and reading.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTS -->
+  <section class="section" id="scripts" style="padding-top:0">
+    <div class="wrap">
+      <p class="section-eyebrow">Two systems, treated honestly</p>
+      <h2>Linear B &amp; Linear A</h2>
+      <div class="scripts">
+        <div class="script b">
+          <span class="tag">Linear B · teal</span>
+          <div class="row linb">𐀷𐀙𐀏</div>
+          <h3>Deciphered Greek</h3>
+          <p><span class="status">Read since 1952.</span> Ventris and Chadwick showed it records an early form of Greek (Mycenaean). The syllabic values here are the established, standard ones.</p>
+          <p><span class="mono">wa-na-ka</span> — <em>wanax</em>, “king”.</p>
+        </div>
+        <div class="script a">
+          <span class="tag">Linear A · ochre</span>
+          <div class="row lina">𐘀𐘁𐘂</div>
+          <h3>Still undeciphered</h3>
+          <p><span class="status">Language unknown.</span> Linear A recorded the Minoan language, which we cannot yet read. The Latin values shown are conventional transcriptions from the shared <span class="mono">AB</span> signs.</p>
+          <p>They let you transcribe signs consistently — but they are <em>not</em> a translation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="numbers">
+        <div><div class="n">60</div><div class="l">Linear B<br>syllabograms</div></div>
+        <div><div class="n">14</div><div class="l">special / optional<br>signs</div></div>
+        <div><div class="n">41</div><div class="l">Linear B<br>ideograms</div></div>
+        <div><div class="n">51</div><div class="l">Linear A<br>signs</div></div>
+      </div>
+      <p class="callout" style="margin-top:1.6rem">
+        <strong>Sources.</strong> Sign inventories and phonetic values come from the <strong>Unicode Standard</strong> —
+        the Linear B Syllabary, Linear B Ideograms and Linear A blocks. Glyphs render through the
+        <strong>Noto Sans Linear A / B</strong> web fonts, so no special system fonts are required.
+        Pure HTML, CSS and vanilla JavaScript in a single file — no frameworks, no build, no tracking.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <p class="author">Georgios A. Manios</p>
+        <p style="margin:0"><a href="mailto:gmanios@uth.gr">gmanios@uth.gr</a> · <a href="https://github.com/gmanios" target="_blank" rel="noopener">github.com/gmanios</a></p>
+        <p class="credit" style="margin:.6rem 0 0">Built for the joy of Aegean writing — from Crete, where the tablets were found. Released under the MIT License.</p>
+      </div>
+      <div style="text-align:right">
+        <a class="cta primary" href="aegean-scripts.html" style="display:inline-flex">Open the composer</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Rotating hero word demo (all verified Mycenaean readings)
+const WORDS = [
+  {g:'𐀒𐀜𐀰',    t:'ko-no-so',    d:'“Knossos”'},
+  {g:'𐀀𐀖𐀛𐀰',  t:'a-mi-ni-so',  d:'“Amnisos”'},
+  {g:'𐀷𐀙𐀏',    t:'wa-na-ka',    d:'“wanax — king”'},
+  {g:'𐀞𐀂𐀵',    t:'pa-i-to',     d:'“Phaistos”'},
+];
+const g=document.getElementById('demo-glyphs'),
+      t=document.getElementById('demo-translit'),
+      d=document.getElementById('demo-gloss');
+let i=0;
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce){
+  setInterval(()=>{
+    i=(i+1)%WORDS.length;
+    g.style.opacity=t.style.opacity=d.style.opacity='0';
+    g.style.transition=t.style.transition=d.style.transition='opacity .35s';
+    setTimeout(()=>{
+      g.textContent=WORDS[i].g; t.textContent=WORDS[i].t; d.textContent=WORDS[i].d;
+      g.style.opacity=t.style.opacity=d.style.opacity='1';
+    },380);
+  },3200);
+}
+</script>
+</body>
+</html>
