@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ανακαλύψτε το Κεραμούτσι Μαλεβιζίου: ιστορία, μνημεία, φύση, παραδόσεις και χρήσιμες πληροφορίες για τον επισκέπτη.">
+  <meta name="theme-color" content="#087f8c">
+  <meta property="og:title" content="Κεραμούτσι Μαλεβιζίου — Η Κρήτη όπως μένει στη μνήμη">
+  <meta property="og:description" content="Ψηφιακός οδηγός για το Κεραμούτσι Μαλεβιζίου.">
+  <meta property="og:image" content="assets/images/keramoutsi-panorama.jpg">
+  <meta property="og:type" content="website">
+  <title>Κεραμούτσι Μαλεβιζίου | Επίσημος ψηφιακός οδηγός</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Serif:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Μετάβαση στο περιεχόμενο</a>
+
+  <div class="topbar" aria-label="Γρήγορες πληροφορίες">
+    <div class="container topbar__inner">
+      <span><i data-lucide="map-pin" aria-hidden="true"></i><span data-i18n="topDistance">15 χλμ. από το Ηράκλειο</span></span>
+      <span><i data-lucide="mountain-snow" aria-hidden="true"></i><span data-i18n="topType">Αυθεντική κρητική ενδοχώρα</span></span>
+      <a href="#visit"><i data-lucide="navigation" aria-hidden="true"></i><span data-i18n="topDirections">Οδηγίες πρόσβασης</span></a>
+    </div>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Κεραμούτσι, αρχική">
+        <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#087f8c"/>
+              <stop offset="1" stop-color="#38a169"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="29" fill="url(#logoGradient)"/>
+          <path d="M8 39c10-10 17-13 25-9 8 4 13 1 23-8v22H8z" fill="#fff" opacity=".96"/>
+          <path d="M14 36c7-7 14-10 21-7 7 3 12 0 20-7" fill="none" stroke="#dff9ed" stroke-width="3" stroke-linecap="round"/>
+          <path d="M34 24c4-8 9-11 15-10-1 6-5 11-12 13" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span>
+          <strong data-i18n="brand">Κεραμούτσι</strong>
+          <small data-i18n="brandSub">Μαλεβίζι · Κρήτη</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Άνοιγμα μενού">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Κύρια πλοήγηση">
+        <a href="#discover" data-i18n="navDiscover">Ανακάλυψε</a>
+        <a href="#history" data-i18n="navHistory">Ιστορία</a>
+        <a href="#people" data-i18n="navPeople">Πρόσωπα</a>
+        <a href="#gallery" data-i18n="navGallery">Εικόνες</a>
+        <a href="#visit" data-i18n="navVisit">Επίσκεψη</a>
+        <button class="lang-toggle" type="button" aria-label="Switch language"><span>EN</span><i data-lucide="languages" aria-hidden="true"></i></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero__image" src="assets/images/keramoutsi-panorama.jpg" alt="Πανοραμική άποψη του Κεραμουτσίου ανάμεσα σε ελαιώνες" fetchpriority="high">
+      <div class="hero__shade"></div>
+      <div class="hero__pattern" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <p class="eyebrow hero__eyebrow"><i data-lucide="sparkles" aria-hidden="true"></i><span data-i18n="heroEyebrow">Ένα χωριό που κρατά την Κρήτη ζωντανή</span></p>
+        <h1 id="hero-title" data-i18n="heroTitle">Κεραμούτσι.<br>Μικρό στον χάρτη,<br><em>μεγάλο σε ιστορία.</em></h1>
+        <p data-i18n="heroText">Αμπέλια, ελαιώνες, βυζαντινοί ναοί, ένα ιστορικό φρούριο και η μνήμη ανθρώπων που αγωνίστηκαν για την ελευθερία.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#discover"><span data-i18n="heroCta1">Ξεκίνα την περιήγηση</span><i data-lucide="arrow-down" aria-hidden="true"></i></a>
+          <a class="btn btn--glass" href="#visit"><i data-lucide="route" aria-hidden="true"></i><span data-i18n="heroCta2">Οργάνωσε επίσκεψη</span></a>
+        </div>
+      </div>
+      <div class="hero__credit">Φωτογραφία: C messier / Wikimedia Commons, CC BY-SA 4.0</div>
+    </section>
+
+    <section class="quick-facts" aria-label="Σύντομες πληροφορίες">
+      <div class="container facts-grid">
+        <article><i data-lucide="car-front" aria-hidden="true"></i><strong>~25′</strong><span data-i18n="factDrive">οδικώς από το Ηράκλειο</span></article>
+        <article><i data-lucide="church" aria-hidden="true"></i><strong>14ος αι.</strong><span data-i18n="factChurch">τοιχογραφίες στην Παναγία</span></article>
+        <article><i data-lucide="castle" aria-hidden="true"></i><strong>1206–1211</strong><span data-i18n="factCastle">πιθανή ίδρυση του Malvicino</span></article>
+        <article><i data-lucide="grape" aria-hidden="true"></i><strong data-i18n="factLandStrong">Αμπέλια & ελιές</strong><span data-i18n="factLand">τοπίο και τοπική παραγωγή</span></article>
+      </div>
+    </section>
+
+    <section class="section intro" id="discover">
+      <div class="container intro__grid">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span data-i18n="introEyebrow">Γνώρισε το χωριό</span></p>
+          <h2 data-i18n="introTitle">Η ήρεμη πλευρά του Μαλεβιζίου</h2>
+        </div>
+        <div class="intro__copy reveal">
+          <p class="lead" data-i18n="introLead">Χτισμένο μέσα σε μια καταπράσινη ζώνη από αμπέλια και ελαιώνες, το Κεραμούτσι προσφέρει στον επισκέπτη κάτι σπάνιο: ιστορία χωρίς συνωστισμό και παράδοση χωρίς σκηνοθεσία.</p>
+          <p data-i18n="introText">Περπάτησε στην πλατεία, αναζήτησε τις παλιές εκκλησίες, γνώρισε τη Φάμπρικα Κοκκινίδη και συνέχισε προς τη Φλέγα ή το Καστέλι Μαλεβιζίου. Το χωριό είναι ιδανικό για μια ήρεμη ημερήσια απόδραση από το Ηράκλειο.</p>
+        </div>
+      </div>
+
+      <div class="container filter-wrap reveal" aria-label="Φίλτρα σημείων ενδιαφέροντος">
+        <button class="filter-btn is-active" data-filter="all" type="button" data-i18n="filterAll">Όλα</button>
+        <button class="filter-btn" data-filter="history" type="button" data-i18n="filterHistory">Ιστορία</button>
+        <button class="filter-btn" data-filter="religion" type="button" data-i18n="filterReligion">Ναοί</button>
+        <button class="filter-btn" data-filter="nature" type="button" data-i18n="filterNature">Φύση</button>
+        <button class="filter-btn" data-filter="tradition" type="button" data-i18n="filterTradition">Παράδοση</button>
+      </div>
+
+      <div class="container places-grid">
+        <article class="place-card place-card--image reveal" data-category="religion">
+          <img src="assets/images/panagia-keramoutsi.jpg" alt="Ο ναός της Παναγίας στο Κεραμούτσι" loading="lazy">
+          <div class="place-card__overlay"></div>
+          <div class="place-card__body">
+            <span class="tag" data-i18n="tagMonument">Μνημείο</span>
+            <h3 data-i18n="panagiaTitle">Ναός της Παναγίας</h3>
+            <p data-i18n="panagiaText">Σώζει λαϊκές τοιχογραφίες του 14ου αιώνα και τη μεταγενέστερη σταυροειδή μορφή με τρούλο.</p>
+          </div>
+        </article>
+
+        <article class="place-card reveal" data-category="history">
+          <div class="place-card__icon"><i data-lucide="castle" aria-hidden="true"></i></div>
+          <span class="tag" data-i18n="tagHistory">Ιστορία</span>
+          <h3 data-i18n="castleTitle">Castel Malvicino</h3>
+          <p data-i18n="castleText">Τα ερείπια του στρατηγικού φρουρίου που έδωσε το όνομά του σε ολόκληρη την επαρχία Μαλεβιζίου.</p>
+          <a href="#history"><span data-i18n="learnMore">Μάθε περισσότερα</span><i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </article>
+
+        <article class="place-card reveal" data-category="history tradition">
+          <div class="place-card__thumbs" aria-label="Φωτογραφίες της Φάμπρικας Κοκκινίδη">
+            <img src="assets/images/fabrica-kokkinidi-1.jpg" alt="Πέτρινη όψη της Φάμπρικας Κοκκινίδη" loading="lazy">
+            <img src="assets/images/fabrica-kokkinidi-2.jpg" alt="Εσωτερική αυλή της Φάμπρικας Κοκκινίδη" loading="lazy">
+            <img src="assets/images/fabrica-kokkinidi-3.jpg" alt="Παραδοσιακός εξοπλισμός ελαιοτριβείου" loading="lazy">
+          </div>
+          <span class="tag" data-i18n="tagHeritage">Κληρονομιά</span>
+          <h3 data-i18n="factoryTitle">Φάμπρικα Κοκκινίδη</h3>
+          <p data-i18n="factoryText">Προβιομηχανικό ελαιοτριβείο με σωζόμενο εξοπλισμό, συνδεδεμένο με την οικογένεια του Ηρακλή Κοκκινίδη.</p>
+        </article>
+
+        <article class="place-card reveal" data-category="nature">
+          <div class="place-card__icon"><i data-lucide="trees" aria-hidden="true"></i></div>
+          <span class="tag" data-i18n="tagNature">Φύση</span>
+          <h3 data-i18n="flegaTitle">Η θέση Φλέγα</h3>
+          <p data-i18n="flegaText">Πλάτωμα δίπλα στο ποτάμι, διαμορφωμένο για ξεκούραση, μικρές παρέες και ήρεμες στιγμές στη φύση.</p>
+        </article>
+
+        <article class="place-card reveal" data-category="religion history">
+          <div class="place-card__icon"><i data-lucide="landmark" aria-hidden="true"></i></div>
+          <span class="tag" data-i18n="tagChurch">Ναός</span>
+          <h3 data-i18n="antoniosTitle">Άγιος Αντώνιος</h3>
+          <p data-i18n="antoniosText">Ιστορικός ναός στην άκρη του χωριού, γνωστός για τις παλιές τοιχογραφίες και τα εμφανή ίχνη της οθωμανικής περιόδου.</p>
+        </article>
+
+        <article class="place-card reveal" data-category="tradition">
+          <div class="place-card__icon"><i data-lucide="cooking-pot" aria-hidden="true"></i></div>
+          <span class="tag" data-i18n="tagExperience">Εμπειρία</span>
+          <h3 data-i18n="rakiTitle">Ρακοκάζανα & γλέντια</h3>
+          <p data-i18n="rakiText">Η απόσταξη της τσικουδιάς γίνεται αφορμή για παρέες, μουσική και τοπικές γεύσεις, κυρίως το φθινόπωρο.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section history-section" id="history">
+      <div class="container">
+        <div class="section-heading section-heading--light reveal">
+          <p class="eyebrow"><span data-i18n="historyEyebrow">Χρόνος και μνήμη</span></p>
+          <h2 data-i18n="historyTitle">Ιστορία πολλών αιώνων</h2>
+          <p data-i18n="historyIntro">Το Κεραμούτσι βρίσκεται σε μια περιοχή που συνέδεσε την αγροτική ζωή, τη στρατηγική άμυνα και τους αγώνες της Κρήτης.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline__item reveal">
+            <span class="timeline__date">1206–1211</span>
+            <div><h3 data-i18n="time1Title">Το φρούριο Malvicino</h3><p data-i18n="time1Text">Η επικρατέστερη εκδοχή συνδέει την κατασκευή του με τη σύντομη Γενουατική κατοχή της Κρήτης και τον Enrico Pescatore. Η θέση του επέτρεπε τον έλεγχο της ενδοχώρας.</p></div>
+          </article>
+          <article class="timeline__item reveal">
+            <span class="timeline__date">1303–1363</span>
+            <div><h3 data-i18n="time2Title">Σεισμός και επανάσταση</h3><p data-i18n="time2Text">Το φρούριο αναφέρεται ότι καταστράφηκε στον μεγάλο σεισμό του 1303, ανοικοδομήθηκε και βρέθηκε ξανά στο επίκεντρο της επανάστασης των Καλλεργών.</p></div>
+          </article>
+          <article class="timeline__item reveal">
+            <span class="timeline__date">1583</span>
+            <div><h3 data-i18n="time3Title">Chieramuzzi</h3><p data-i18n="time3Text">Ο Καστροφύλακας καταγράφει τον οικισμό με το όνομα Chieramuzzi και 192 κατοίκους. Το 1671 εμφανίζεται ως Keramuci.</p></div>
+          </article>
+          <article class="timeline__item reveal">
+            <span class="timeline__date">1842–1868</span>
+            <div><h3 data-i18n="time4Title">Η εποχή του Ηρακλή Κοκκινίδη</h3><p data-i18n="time4Text">Ο νεαρός οπλαρχηγός συνδέθηκε με το Κεραμούτσι και πρωταγωνίστησε στους απελευθερωτικούς αγώνες, ως αρχηγός Μαλεβιζίου–Τεμένους στην Επανάσταση του 1866.</p></div>
+          </article>
+          <article class="timeline__item reveal">
+            <span class="timeline__date" data-i18n="today">Σήμερα</span>
+            <div><h3 data-i18n="time5Title">Ζωντανό χωριό, ζωντανή παράδοση</h3><p data-i18n="time5Text">Η κοινότητα συνεχίζει να οργανώνει γιορτές, πολιτιστικές δράσεις και εκδηλώσεις μνήμης, κρατώντας ενεργή τη σχέση των νεότερων γενεών με τον τόπο.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section people-section" id="people">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span data-i18n="peopleEyebrow">Οι άνθρωποι της ιστορίας</span></p>
+          <h2 data-i18n="peopleTitle">Πρόσωπα που άφησαν αποτύπωμα</h2>
+        </div>
+
+        <article class="featured-person reveal">
+          <div class="featured-person__image">
+            <img src="assets/images/iraklis-kokkinidis.jpg" alt="Ιστορικό πορτρέτο του Ηρακλή Κοκκινίδη" loading="lazy">
+            <span>Public domain · Wikimedia Commons</span>
+          </div>
+          <div class="featured-person__content">
+            <p class="eyebrow"><span>1842–1868</span></p>
+            <h3 data-i18n="iraklisTitle">Ηρακλής Κοκκινίδης</h3>
+            <p class="lead" data-i18n="iraklisLead">Οπλαρχηγός Μαλεβιζίου και μία από τις νεότερες, πιο έντονες μορφές της Κρητικής Επανάστασης του 1866.</p>
+            <p data-i18n="iraklisText">Έζησε και ανέπτυξε τη δράση του στο Κεραμούτσι, αφιερώνοντας μεγάλο μέρος της περιουσίας του στον αγώνα. Έπεσε το 1868 στη Γαζανή Καμάρα, σε ηλικία 26 ετών. Η προτομή του βρίσκεται στην πλατεία του χωριού.</p>
+            <div class="person-highlights">
+              <span><i data-lucide="shield" aria-hidden="true"></i><span data-i18n="iraklisH1">Αρχηγός Μαλεβιζίου–Τεμένους</span></span>
+              <span><i data-lucide="flag" aria-hidden="true"></i><span data-i18n="iraklisH2">Επανάσταση του 1866</span></span>
+              <span><i data-lucide="landmark" aria-hidden="true"></i><span data-i18n="iraklisH3">Μνημείο στην πλατεία</span></span>
+            </div>
+          </div>
+        </article>
+
+        <div class="people-grid">
+          <article class="person-card reveal">
+            <div class="person-card__initials">ΜΚ</div>
+            <h3 data-i18n="kalimerakisTitle">Μιχαήλ Καλημεράκης</h3>
+            <p data-i18n="kalimerakisText">Γαμπρός του Ηρακλή Κοκκινίδη και διάδοχός του στην αρχηγία μετά τον θάνατό του. Συνέχισε τον αγώνα μαζί με τους άνδρες του.</p>
+          </article>
+          <article class="person-card reveal">
+            <div class="person-card__initials">ΝΚ</div>
+            <h3 data-i18n="nikolaosTitle">Νικόλαος Κοκκινίδης</h3>
+            <p data-i18n="nikolaosText">Πατέρας του Ηρακλή. Η οικογένεια Κοκκινίδη συμμετείχε ενεργά στη Μεγάλη Κρητική Επανάσταση και διέθεσε πόρους για τον αγώνα.</p>
+          </article>
+          <article class="person-card reveal">
+            <div class="person-card__initials">ΕΚ</div>
+            <h3 data-i18n="manolisTitle">Εμμανουήλ Κοκκινίδης</h3>
+            <p data-i18n="manolisText">Αδελφός του Ηρακλή και μέλος της οικογένειας που συνδέθηκε συλλογικά με την επαναστατική δράση στο Μαλεβίζι.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section traditions-section">
+      <div class="container traditions-grid">
+        <div class="traditions-copy reveal">
+          <p class="eyebrow"><span data-i18n="tradEyebrow">Ζωντανή παράδοση</span></p>
+          <h2 data-i18n="tradTitle">Γιορτές, γεύσεις και παρέες</h2>
+          <p data-i18n="tradText">Η εμπειρία του Κεραμουτσίου δεν περιορίζεται στα μνημεία. Το χωριό ζει μέσα από τα πανηγύρια, τα καζανέματα και τις εκδηλώσεις που οργανώνουν οι κάτοικοι και ο πολιτιστικός σύλλογος.</p>
+          <div class="traditions-list">
+            <div><i data-lucide="flame" aria-hidden="true"></i><span><strong data-i18n="trad1Title">Κλήδονας</strong><small data-i18n="trad1Text">Γιορτή του Αγίου Ιωάννη με φωτιές και έθιμα.</small></span></div>
+            <div><i data-lucide="music-2" aria-hidden="true"></i><span><strong data-i18n="trad2Title">Πανηγύρι της Παναγίας</strong><small data-i18n="trad2Text">Θρησκευτικός εορτασμός και αντάμωμα του χωριού.</small></span></div>
+            <div><i data-lucide="drum" aria-hidden="true"></i><span><strong data-i18n="trad3Title">Γιορτές και πολιτιστικές δράσεις</strong><small data-i18n="trad3Text">Μουσική, τοπικά προϊόντα και δραστηριότητες για όλες τις ηλικίες.</small></span></div>
+          </div>
+        </div>
+        <div class="quote-card reveal">
+          <i data-lucide="quote" aria-hidden="true"></i>
+          <blockquote data-i18n="quote">«Το Κεραμούτσι δεν είναι αξιοθέατο που απλώς βλέπεις. Είναι τόπος που καταλαβαίνεις περπατώντας αργά.»</blockquote>
+          <span data-i18n="quoteSource">Η εμπειρία του επισκέπτη</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span data-i18n="galleryEyebrow">Εικόνες του τόπου</span></p>
+          <h2 data-i18n="galleryTitle">Μια πρώτη ματιά στο Κεραμούτσι</h2>
+          <p data-i18n="galleryIntro">Επίλεξε μια εικόνα για προβολή σε πλήρες μέγεθος.</p>
+        </div>
+        <div class="gallery-grid">
+          <button class="gallery-item gallery-item--wide reveal" type="button" data-full="assets/images/keramoutsi-panorama.jpg" data-caption="Πανοραμική άποψη του Κεραμουτσίου">
+            <img src="assets/images/keramoutsi-panorama.jpg" alt="Πανοραμική άποψη του Κεραμουτσίου" loading="lazy">
+            <span data-i18n="galleryVillage">Το χωριό μέσα στους ελαιώνες</span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="assets/images/panagia-keramoutsi.jpg" data-caption="Ο ναός της Παναγίας">
+            <img src="assets/images/panagia-keramoutsi.jpg" alt="Ο ναός της Παναγίας στο Κεραμούτσι" loading="lazy">
+            <span data-i18n="galleryPanagia">Η Παναγία</span>
+          </button>
+          <button class="gallery-item gallery-item--portrait reveal" type="button" data-full="assets/images/iraklis-kokkinidis.jpg" data-caption="Ο Ηρακλής Κοκκινίδης">
+            <img src="assets/images/iraklis-kokkinidis.jpg" alt="Ο Ηρακλής Κοκκινίδης" loading="lazy">
+            <span data-i18n="galleryIraklis">Ηρακλής Κοκκινίδης</span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="assets/images/fabrica-kokkinidi-1.jpg" data-caption="Φάμπρικα Κοκκινίδη">
+            <img src="assets/images/fabrica-kokkinidi-1.jpg" alt="Φάμπρικα Κοκκινίδη" loading="lazy">
+            <span data-i18n="galleryFactory1">Η πέτρινη Φάμπρικα</span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="assets/images/fabrica-kokkinidi-3.jpg" data-caption="Παραδοσιακός εξοπλισμός ελαιοτριβείου">
+            <img src="assets/images/fabrica-kokkinidi-3.jpg" alt="Παλιός εξοπλισμός ελαιοτριβείου" loading="lazy">
+            <span data-i18n="galleryFactory2">Μνήμες ελαιοπαραγωγής</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section visit-section" id="visit">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span data-i18n="visitEyebrow">Σχεδίασε την επίσκεψή σου</span></p>
+          <h2 data-i18n="visitTitle">Ένα χωριό κοντά στην πόλη, μακριά από τη βιασύνη</h2>
+        </div>
+
+        <div class="visit-grid">
+          <div class="map-card reveal">
+            <div id="map" aria-label="Χάρτης του Κεραμουτσίου"></div>
+            <div class="map-card__footer">
+              <div><strong data-i18n="mapTitle">Κεραμούτσι Μαλεβιζίου</strong><span data-i18n="mapCoords">35.2781° N, 25.0282° E</span></div>
+              <a class="btn btn--small btn--primary" href="https://www.google.com/maps/dir/?api=1&destination=35.278137,25.028229" target="_blank" rel="noopener"><span data-i18n="directions">Οδηγίες</span><i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+          </div>
+
+          <div class="visit-info reveal">
+            <article><i data-lucide="car" aria-hidden="true"></i><div><h3 data-i18n="accessTitle">Πρόσβαση</h3><p data-i18n="accessText">Περίπου 15 χλμ. από το Ηράκλειο, στον δρόμο προς Κρουσώνα, και 3,5 χλμ. νότια της Τυλίσου. Το αυτοκίνητο είναι η πρακτικότερη επιλογή.</p></div></article>
+            <article><i data-lucide="clock-3" aria-hidden="true"></i><div><h3 data-i18n="durationTitle">Χρόνος επίσκεψης</h3><p data-i18n="durationText">Υπολόγισε 2–4 ώρες για το χωριό και περισσότερο αν συνδυάσεις τη διαδρομή με Τύλισο ή κοντινά σημεία του Μαλεβιζίου.</p></div></article>
+            <article><i data-lucide="sun" aria-hidden="true"></i><div><h3 data-i18n="seasonTitle">Καλύτερη εποχή</h3><p data-i18n="seasonText">Άνοιξη για το πράσινο τοπίο, καλοκαιρινά απογεύματα για εκδηλώσεις και φθινόπωρο για την εποχή της απόσταξης.</p></div></article>
+            <article><i data-lucide="footprints" aria-hidden="true"></i><div><h3 data-i18n="respectTitle">Σεβασμός στον τόπο</h3><p data-i18n="respectText">Οι ναοί και τα ιστορικά κτίρια είναι χώροι μνήμης. Απόφυγε την είσοδο σε κλειστές ή μη ασφαλείς εγκαταστάσεις και μην αφήνεις απορρίμματα.</p></div></article>
+          </div>
+        </div>
+
+        <div class="day-plan reveal">
+          <div class="day-plan__heading"><p class="eyebrow"><span data-i18n="planEyebrow">Πρόταση διαδρομής</span></p><h3 data-i18n="planTitle">Μισή ημέρα στο Κεραμούτσι</h3></div>
+          <ol>
+            <li><span>01</span><div><strong data-i18n="plan1Title">Πλατεία και μνημείο</strong><p data-i18n="plan1Text">Ξεκίνα από την καρδιά του χωριού και την προτομή του Ηρακλή Κοκκινίδη.</p></div></li>
+            <li><span>02</span><div><strong data-i18n="plan2Title">Ιστορικοί ναοί</strong><p data-i18n="plan2Text">Περπάτησε προς την Παναγία και τον Άγιο Αντώνιο, παρατηρώντας την παλιά αρχιτεκτονική.</p></div></li>
+            <li><span>03</span><div><strong data-i18n="plan3Title">Φάμπρικα Κοκκινίδη</strong><p data-i18n="plan3Text">Δες το κτίριο του παλιού ελαιοτριβείου και γνώρισε την παραγωγική ιστορία του τόπου.</p></div></li>
+            <li><span>04</span><div><strong data-i18n="plan4Title">Καφές ή φύση</strong><p data-i18n="plan4Text">Κλείσε τη βόλτα στην πλατεία ή, όταν οι συνθήκες το επιτρέπουν, στη θέση Φλέγα.</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-section">
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <p class="eyebrow"><span data-i18n="contactEyebrow">Βοήθησε να γίνει καλύτερος ο οδηγός</span></p>
+          <h2 data-i18n="contactTitle">Έχεις φωτογραφίες, ιστορίες ή διορθώσεις;</h2>
+          <p data-i18n="contactText">Ο τόπος γίνεται πιο ορατός όταν οι άνθρωποί του μοιράζονται τη μνήμη και τη γνώση τους. Συμπλήρωσε τη φόρμα και θα ανοίξει το πρόγραμμα email σου με έτοιμο μήνυμα προς το Visit Malevizi.</p>
+          <div class="contact-details">
+            <a href="mailto:visit@malevizi.gr"><i data-lucide="mail" aria-hidden="true"></i>visit@malevizi.gr</a>
+            <a href="tel:+302813400600"><i data-lucide="phone" aria-hidden="true"></i>2813 400600</a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contact-form" novalidate>
+          <div class="form-row">
+            <label><span data-i18n="formName">Ονοματεπώνυμο</span><input type="text" name="name" autocomplete="name" required></label>
+            <label><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
+          </div>
+          <label><span data-i18n="formSubject">Θέμα</span>
+            <select name="subject" required>
+              <option value="" data-i18n="formSelect">Επίλεξε θέμα</option>
+              <option value="Φωτογραφικό υλικό" data-i18n="formPhoto">Φωτογραφικό υλικό</option>
+              <option value="Ιστορική πληροφορία" data-i18n="formHistory">Ιστορική πληροφορία</option>
+              <option value="Διόρθωση περιεχομένου" data-i18n="formCorrection">Διόρθωση περιεχομένου</option>
+              <option value="Τουριστική πληροφορία" data-i18n="formTourism">Τουριστική πληροφορία</option>
+            </select>
+          </label>
+          <label><span data-i18n="formMessage">Μήνυμα</span><textarea name="message" rows="5" required></textarea></label>
+          <label class="checkbox"><input type="checkbox" name="consent" required><span data-i18n="formConsent">Συμφωνώ να ανοίξει το πρόγραμμα email μου με τα παραπάνω στοιχεία.</span></label>
+          <button class="btn btn--primary" type="submit"><span data-i18n="formSend">Δημιουργία email</span><i data-lucide="send" aria-hidden="true"></i></button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand brand--footer" href="#top">
+          <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="#fff" opacity=".12"/><path d="M8 39c10-10 17-13 25-9 8 4 13 1 23-8v22H8z" fill="#fff"/><path d="M34 24c4-8 9-11 15-10-1 6-5 11-12 13" fill="none" stroke="#c7f9df" stroke-width="3" stroke-linecap="round"/></svg>
+          <span><strong data-i18n="brand">Κεραμούτσι</strong><small data-i18n="brandSub">Μαλεβίζι · Κρήτη</small></span>
+        </a>
+        <p data-i18n="footerText">Ανεξάρτητο πρωτότυπο ψηφιακού οδηγού για την ανάδειξη του χωριού, της ιστορίας και της πολιτιστικής του κληρονομιάς.</p>
+      </div>
+      <div>
+        <h3 data-i18n="footerExplore">Περιήγηση</h3>
+        <a href="#discover" data-i18n="navDiscover">Ανακάλυψε</a>
+        <a href="#history" data-i18n="navHistory">Ιστορία</a>
+        <a href="#people" data-i18n="navPeople">Πρόσωπα</a>
+        <a href="#visit" data-i18n="navVisit">Επίσκεψη</a>
+      </div>
+      <div>
+        <h3 data-i18n="footerUseful">Χρήσιμα</h3>
+        <a href="https://visitmalevizi.gr/el/article/poleis-kai-xoria-tou-dimou-malebiziou/keramoutsi/3661" target="_blank" rel="noopener">Visit Malevizi</a>
+        <a href="https://malevizi.gov.gr/" target="_blank" rel="noopener" data-i18n="municipality">Δήμος Μαλεβιζίου</a>
+        <a href="sources.html" data-i18n="sources">Πηγές & φωτογραφίες</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Keramoutsi Guide</span>
+      <span data-i18n="footerDisclaimer">Οι ώρες λειτουργίας και η πρόσβαση σε μνημεία μπορεί να αλλάζουν. Επιβεβαίωσε πριν την επίσκεψη.</span>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Προβολή εικόνας">
+    <button class="lightbox__close" type="button" aria-label="Κλείσιμο"><i data-lucide="x" aria-hidden="true"></i></button>
+    <img src="" alt="">
+    <p></p>
+  </dialog>
+
+  <button class="back-to-top" type="button" aria-label="Επιστροφή στην κορυφή"><i data-lucide="arrow-up" aria-hidden="true"></i></button>
+
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
